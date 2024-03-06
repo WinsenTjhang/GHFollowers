@@ -15,7 +15,7 @@ final class FavoritesViewModel {
     static let emptyStateMessage = "No Favorites\nAdd one on the follower screen"
     
     func retrieveFavorites() {
-        persistenceManager.retrieveFavorites()
+        let _ = persistenceManager.retrieveFavorites()
         favorites = persistenceManager.favorites
     }
     
