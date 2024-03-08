@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FavoritesView: View {
+    @Environment(PersistenceManager.self) var persistenceManager: PersistenceManager
     @State var viewModel = FavoritesViewModel()
     
     var body: some View {
@@ -20,14 +21,14 @@ struct FavoritesView: View {
                         }
                     }
                     .onDelete(perform: { indexSet in
-                        viewModel.remove(index: indexSet)
+                        viewModel.remove(index: indexSet, persistenceManager: persistenceManager)
                     })
                     
                 }
                 .navigationTitle("Favorites")
             }
             .onAppear() {
-                viewModel.retrieveFavorites()
+                viewModel.retrieveFavorites(persistenceManager: persistenceManager)
             }
             
             if viewModel.favorites.isEmpty {
