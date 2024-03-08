@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-final class PersistenceManager: ObservableObject {
-    @AppStorage("userFavorites") private var userData: Data?
-    @Published var favorites: [Follower] = []
+@Observable
+final class PersistenceManager {
+    @ObservationIgnored @AppStorage("userFavorites") private var userData: Data?
+     var favorites: [Follower] = []
     
     func add(favorite: Follower) throws {
         guard !favorites.contains(favorite) else {
@@ -17,12 +18,14 @@ final class PersistenceManager: ObservableObject {
         }
         
         favorites.append(favorite)
+        
         return try self.save(favorites: favorites)
         
     }
     
     func remove(indexSet: IndexSet) throws {
         favorites.remove(atOffsets: indexSet)
+        
         return try self.save(favorites: favorites)
     }
     
@@ -48,7 +51,7 @@ final class PersistenceManager: ObservableObject {
             let encodedFavorites = try encoder.encode(favorites)
             userData = encodedFavorites
         } catch {
-            throw GFError.unableToFavorite
+            print(GFError.unableToFavorite)
         }
     }
     

@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum GFError: String, Error{
+enum GFError: Error{
     case invalidUsername
     case invalidURL
     case unableToComplete
-    case invalidResponse
+    case invalidResponse(statusCode: Int)
     case invalidData
-    case unableToFavorite
     case alreadyInFavorites
+    case unableToFavorite
 }

@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct GHFollowersApp: App {
+    @State var persistenceManager = PersistenceManager()
+    @State var networkManager = NetworkManager()
+    
     var body: some Scene {
         WindowGroup {
             TabView {
@@ -23,8 +26,18 @@ struct GHFollowersApp: App {
                         Image(systemName: "star.fill")
                         Text("Favorites")
                     }
+                    
+            }
+            .tint(.yellow)
+            .onAppear {
+                let appearance = UITabBarAppearance()
+                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+                appearance.backgroundColor = UIColor(Color.clear.opacity(0.1))
+                UITabBar.appearance().standardAppearance = appearance
+                UITabBar.appearance().scrollEdgeAppearance = appearance
             }
             
         }
+        .environment(persistenceManager)
     }
 }

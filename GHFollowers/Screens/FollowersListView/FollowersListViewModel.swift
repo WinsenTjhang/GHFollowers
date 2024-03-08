@@ -26,7 +26,7 @@ class FollowersListViewModel {
             followers = try await NetworkManager.shared.getFollowers(of: username)
             isLoading = false
         } catch {
-            print("Search followers failed: \(error.localizedDescription)")
+            print("Search followers failed, \(error.localizedDescription)")
         }
     }
     
@@ -47,9 +47,8 @@ class FollowersListViewModel {
         do {
             try persistenceManager.add(favorite: user)
         } catch {
-            print("Adding favorite failed: \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
-        
     }
     
     
@@ -59,7 +58,7 @@ class FollowersListViewModel {
         do {
             try persistenceManager.remove(indexSet: index)
         } catch {
-            print("Remove function error: \(error.localizedDescription)")
+            print(error.localizedDescription)
         }
     }
     
@@ -72,7 +71,6 @@ class FollowersListViewModel {
         }
         
         self.user = user
-        
         return persistenceManager.favorites.contains(user)
     }
     

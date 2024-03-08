@@ -19,7 +19,7 @@ struct EmptyStateView: View {
                 .frame(width: 270)
                 .multilineTextAlignment(.center)
             
-            Spacer()
+            
             
             HStack {
                 Spacer()
@@ -31,10 +31,13 @@ struct EmptyStateView: View {
                            height: 500)
                     .padding([.bottom,
                               .trailing],
-                             -150)
+                             -200)
             }
+            Spacer()
+            
         }
         .padding()
+        
     }
 }
 

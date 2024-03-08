@@ -20,21 +20,18 @@ final class NetworkManager {
             throw GFError.invalidUsername
         }
         
+        let (data, response) = try await URLSession.shared.data(from: url)
+        
+        let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
+        
+        guard httpResponseCode == 200 else {
+            throw GFError.invalidResponse(statusCode: httpResponseCode!)
+        }
+        
         do {
-            let (data, response) = try await URLSession.shared.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse else {
-                throw GFError.invalidResponse
-            }
-            
-            if httpResponse.statusCode == 200 {
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                return try decoder.decode([Follower].self, from: data)
-            } else {
-                print("HTTP Response Error: \(httpResponse.statusCode)")
-                throw GFError.invalidResponse
-            }
+            let decoder = JSONDecoder()
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
+            return try decoder.decode([Follower].self, from: data)
         } catch {
             throw GFError.invalidData
         }
@@ -49,8 +46,10 @@ final class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(from: url)
         
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw GFError.invalidResponse
+        let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
+        
+        guard httpResponseCode == 200 else {
+            throw GFError.invalidResponse(statusCode: httpResponseCode!)
         }
         
         do {
@@ -70,8 +69,11 @@ final class NetworkManager {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        guard (response as? HTTPURLResponse)?.statusCode == 200 else {
-            throw GFError.invalidResponse
+        
+        let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
+        
+        guard httpResponseCode == 200 else {
+            throw GFError.invalidResponse(statusCode: httpResponseCode!)
         }
         
         guard let image = UIImage(data: data) else {

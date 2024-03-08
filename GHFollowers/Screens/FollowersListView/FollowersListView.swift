@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct FollowersListView: View {
+    @Environment(PersistenceManager.self) var persistenceManager: PersistenceManager
     @State var viewModel = FollowersListViewModel()
-    @State var persistenceManager = PersistenceManager()
     @State var user: Follower = .placeholder
     @State var isOnFavorite = false
     var username: String
@@ -37,6 +37,9 @@ struct FollowersListView: View {
                         isOnFavorite = await viewModel.isUserFavorite(persistenceManager: persistenceManager)
                     }
                 }
+                .onReceive(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Publisher@*/NotificationCenter.default.publisher(for: .NSCalendarDayChanged)/*@END_MENU_TOKEN@*/, perform: { _ in
+                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=code@*/ /*@END_MENU_TOKEN@*/
+                })
                 
             }
             
