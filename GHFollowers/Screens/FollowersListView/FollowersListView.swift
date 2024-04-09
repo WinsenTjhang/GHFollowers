@@ -10,7 +10,6 @@ import SwiftUI
 struct FollowersListView: View {
     @Environment(PersistenceManager.self) var persistenceManager: PersistenceManager
     @State var viewModel = FollowersListViewModel()
-    @State var user: Follower = .placeholder
     @State var isOnFavorite = false
     var username: String
     
@@ -32,14 +31,11 @@ struct FollowersListView: View {
                     favoriteButton
                 }
                 .onAppear() {
-                    viewModel.username = username
                     Task {
-                        isOnFavorite = await viewModel.isUserFavorite(persistenceManager: persistenceManager)
+                        await viewModel.searchFollowers(of: username)
+                        isOnFavorite = await viewModel.isUserFavorite(username: username, persistenceManager: persistenceManager)
                     }
                 }
-                .onReceive(/*@START_MENU_TOKEN@*//*@PLACEHOLDER=Publisher@*/NotificationCenter.default.publisher(for: .NSCalendarDayChanged)/*@END_MENU_TOKEN@*/, perform: { _ in
-                    /*@START_MENU_TOKEN@*//*@PLACEHOLDER=code@*/ /*@END_MENU_TOKEN@*/
-                })
                 
             }
             
@@ -56,29 +52,26 @@ struct FollowersListView: View {
     }
     
 }
-    
+
 private extension FollowersListView {
     var favoriteButton: some View {
         Button(action: {
             if !isOnFavorite {
-                viewModel.add(persistenceManager: persistenceManager)
-                isOnFavorite = true
+                viewModel.addToFavorite(persistenceManager: persistenceManager)
             } else {
-                viewModel.remove(persistenceManager: persistenceManager)
-                isOnFavorite = false
+                viewModel.removeFavorite(persistenceManager: persistenceManager)
             }
+            
+            withAnimation(.bouncy) { isOnFavorite.toggle() }
             
         }) {
-            if isOnFavorite {
-                SFSymbols.onFavorites
-            } else {
-                SFSymbols.notOnFavorites
-            }
-            
+            isOnFavorite ? SFSymbols.onFavorites : SFSymbols.notOnFavorites
         }
+        .disabled(viewModel.isLoading)
     }
 }
-    
-    #Preview {
-        FollowersListView(username: "shipmadison")
-    }
+
+
+#Preview {
+    FollowersListView(username: "shipmadison")
+}

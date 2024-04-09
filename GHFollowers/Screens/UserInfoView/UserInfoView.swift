@@ -24,7 +24,6 @@ struct UserInfoView: View {
                     
                     Group {
                         UserRepositoryView(user: $viewModel.user)
-                        
                         UserFollowersView(user: $viewModel.user)
                     }
                     .padding()

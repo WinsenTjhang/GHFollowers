@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct UserInfoHeaderView: View {
-    @State var viewModel = UserInfoHeaderViewModel()
     @Binding var user: User
     
     var body: some View {

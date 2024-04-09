@@ -10,25 +10,24 @@ import SwiftUI
 @main
 struct GHFollowersApp: App {
     @State var persistenceManager = PersistenceManager()
-    @State var networkManager = NetworkManager()
     
     var body: some Scene {
         WindowGroup {
             TabView {
                 SearchView()
                     .tabItem {
-                        Image(systemName: "magnifyingglass")
+                        SFSymbols.search
                         Text("Search")
                     }
                 
                 FavoritesView()
                     .tabItem {
-                        Image(systemName: "star.fill")
+                        SFSymbols.onFavorites
                         Text("Favorites")
                     }
                     
             }
-            .tint(.yellow)
+            .tint(.black)
             .onAppear {
                 let appearance = UITabBarAppearance()
                 appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)

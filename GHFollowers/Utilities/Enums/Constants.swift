@@ -9,8 +9,8 @@ import SwiftUI
 
 enum SFSymbols {
     static let search = Image(systemName: "magnifyingglass")
-    static let onFavorites = Image(systemName: "star.fill")
-    static let notOnFavorites = Image(systemName: "star")
+    static let onFavorites = Image(systemName: "heart.fill")
+    static let notOnFavorites = Image(systemName: "heart")
 
     static let location = Image(systemName: "mappin.and.ellipse")
     static let repos = Image(systemName: "folder")

@@ -21,7 +21,6 @@ final class NetworkManager {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        
         let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
         
         guard httpResponseCode == 200 else {
@@ -45,7 +44,6 @@ final class NetworkManager {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        
         let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
         
         guard httpResponseCode == 200 else {
@@ -69,7 +67,6 @@ final class NetworkManager {
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        
         let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
         
         guard httpResponseCode == 200 else {

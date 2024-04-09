@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SearchView: View {
     @State var viewModel = SearchViewModel()
-    @State private var username = ""
+    @State private var username = "shipmadison"
     @State private var showAlert = false
     @State private var alertMessage = ""
     @State private var navigate = false
@@ -31,6 +31,7 @@ struct SearchView: View {
                     .padding(30)
                 
                 Spacer()
+                
                 Button(action: {
                     getFollowers()
                 }) {

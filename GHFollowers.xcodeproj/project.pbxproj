@@ -25,7 +25,6 @@
 		70BDDE462B905EC500BDC500 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE452B905EC500BDC500 /* Constants.swift */; };
 		70BDDE492B90891300BDC500 /* UserRepositoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE482B90891300BDC500 /* UserRepositoryView.swift */; };
 		70BDDE4B2B90894D00BDC500 /* UserFollowersView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE4A2B90894D00BDC500 /* UserFollowersView.swift */; };
-		70BDDE4D2B9186CE00BDC500 /* UserInfoHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE4C2B9186CE00BDC500 /* UserInfoHeaderViewModel.swift */; };
 		70BDDE4F2B91884E00BDC500 /* UserInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE4E2B91884E00BDC500 /* UserInfoViewModel.swift */; };
 		70BDDE512B91960B00BDC500 /* GFButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE502B91960B00BDC500 /* GFButton.swift */; };
 		70BDDE542B919C6900BDC500 /* DateFormatter+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE532B919C6900BDC500 /* DateFormatter+Extension.swift */; };
@@ -61,7 +60,6 @@
 		70BDDE452B905EC500BDC500 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		70BDDE482B90891300BDC500 /* UserRepositoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepositoryView.swift; sourceTree = "<group>"; };
 		70BDDE4A2B90894D00BDC500 /* UserFollowersView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserFollowersView.swift; sourceTree = "<group>"; };
-		70BDDE4C2B9186CE00BDC500 /* UserInfoHeaderViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderViewModel.swift; sourceTree = "<group>"; };
 		70BDDE4E2B91884E00BDC500 /* UserInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModel.swift; sourceTree = "<group>"; };
 		70BDDE502B91960B00BDC500 /* GFButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFButton.swift; sourceTree = "<group>"; };
 		70BDDE532B919C6900BDC500 /* DateFormatter+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DateFormatter+Extension.swift"; sourceTree = "<group>"; };
@@ -107,14 +105,12 @@
 		70BDDE1A2B8A0DC300BDC500 /* GHFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				70CAC8952BC52DD1004EECB7 /* Root App */,
+				70BDDE322B8C571600BDC500 /* Screens */,
 				70BDDE2D2B8C4F5D00BDC500 /* Model */,
 				70BDDE552B91DBB500BDC500 /* Managers */,
-				70BDDE522B919C3D00BDC500 /* Extensions */,
 				70BDDE442B905EAD00BDC500 /* Utilities */,
-				70BDDE3A2B8F291100BDC500 /* Error */,
 				70BDDE372B8F20D100BDC500 /* Custom Views */,
-				70BDDE322B8C571600BDC500 /* Screens */,
-				70BDDE1B2B8A0DC300BDC500 /* GHFollowersApp.swift */,
 				70BDDE1F2B8A0DC500BDC500 /* Assets.xcassets */,
 				70BDDE212B8A0DC500BDC500 /* Preview Content */,
 			);
@@ -142,9 +138,9 @@
 			isa = PBXGroup;
 			children = (
 				70BDDE6E2B973F6800BDC500 /* SearchView */,
-				70BDDE612B96AB0700BDC500 /* UserInfoView */,
-				70BDDE602B96AAEC00BDC500 /* FavoritesListView */,
 				70BDDE3D2B90454600BDC500 /* FollowersListView */,
+				70BDDE602B96AAEC00BDC500 /* FavoritesListView */,
+				70BDDE612B96AB0700BDC500 /* UserInfoView */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -152,13 +148,10 @@
 		70BDDE372B8F20D100BDC500 /* Custom Views */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE712B9AB86600BDC500 /* FollowerCell */,
+				70CAC8922BC52CC6004EECB7 /* AvatarImage */,
+				70CAC8942BC52D92004EECB7 /* Buttons */,
 				70BDDE672B96C43300BDC500 /* Labels */,
-				70BDDE642B96C1F600BDC500 /* Views */,
-				70BDDE632B96AC4600BDC500 /* Image */,
-				70BDDE472B9088CC00BDC500 /* UserInfo */,
-				70BDDE502B91960B00BDC500 /* GFButton.swift */,
-				70BDDE5A2B95A41600BDC500 /* FavoriteCell.swift */,
+				70BDDE652B96C20E00BDC500 /* EmptyStateView.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -174,6 +167,7 @@
 		70BDDE3D2B90454600BDC500 /* FollowersListView */ = {
 			isa = PBXGroup;
 			children = (
+				70BDDE712B9AB86600BDC500 /* FollowerCell */,
 				70BDDE332B8C573600BDC500 /* FollowersListView.swift */,
 				70BDDE3E2B90465300BDC500 /* FollowersListViewModel.swift */,
 			);
@@ -183,19 +177,11 @@
 		70BDDE442B905EAD00BDC500 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE452B905EC500BDC500 /* Constants.swift */,
+				70CAC8932BC52D81004EECB7 /* Enums */,
+				70BDDE3A2B8F291100BDC500 /* Error */,
+				70BDDE522B919C3D00BDC500 /* Extensions */,
 			);
 			path = Utilities;
-			sourceTree = "<group>";
-		};
-		70BDDE472B9088CC00BDC500 /* UserInfo */ = {
-			isa = PBXGroup;
-			children = (
-				70BDDE622B96AB2800BDC500 /* UserInfoHeader */,
-				70BDDE482B90891300BDC500 /* UserRepositoryView.swift */,
-				70BDDE4A2B90894D00BDC500 /* UserFollowersView.swift */,
-			);
-			path = UserInfo;
 			sourceTree = "<group>";
 		};
 		70BDDE522B919C3D00BDC500 /* Extensions */ = {
@@ -218,8 +204,9 @@
 		70BDDE602B96AAEC00BDC500 /* FavoritesListView */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE582B95A00700BDC500 /* FavoritesViewModel.swift */,
+				70BDDE5A2B95A41600BDC500 /* FavoriteCell.swift */,
 				70BDDE292B8B2F0000BDC500 /* FavoritesView.swift */,
+				70BDDE582B95A00700BDC500 /* FavoritesViewModel.swift */,
 			);
 			path = FavoritesListView;
 			sourceTree = "<group>";
@@ -227,36 +214,11 @@
 		70BDDE612B96AB0700BDC500 /* UserInfoView */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE4E2B91884E00BDC500 /* UserInfoViewModel.swift */,
 				70BDDE352B8C902E00BDC500 /* UserInfoView.swift */,
+				70BDDE4E2B91884E00BDC500 /* UserInfoViewModel.swift */,
+				70CAC8912BC52C2E004EECB7 /* SubViews */,
 			);
 			path = UserInfoView;
-			sourceTree = "<group>";
-		};
-		70BDDE622B96AB2800BDC500 /* UserInfoHeader */ = {
-			isa = PBXGroup;
-			children = (
-				70BDDE4C2B9186CE00BDC500 /* UserInfoHeaderViewModel.swift */,
-				70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */,
-			);
-			path = UserInfoHeader;
-			sourceTree = "<group>";
-		};
-		70BDDE632B96AC4600BDC500 /* Image */ = {
-			isa = PBXGroup;
-			children = (
-				70BDDE5E2B95A50200BDC500 /* AvatarImageViewModel.swift */,
-				70BDDE5C2B95A4D600BDC500 /* AvatarImageView.swift */,
-			);
-			path = Image;
-			sourceTree = "<group>";
-		};
-		70BDDE642B96C1F600BDC500 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				70BDDE652B96C20E00BDC500 /* EmptyStateView.swift */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		70BDDE672B96C43300BDC500 /* Labels */ = {
@@ -285,6 +247,49 @@
 				70BDDE402B905AF300BDC500 /* FollowerCell.swift */,
 			);
 			path = FollowerCell;
+			sourceTree = "<group>";
+		};
+		70CAC8912BC52C2E004EECB7 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */,
+				70BDDE482B90891300BDC500 /* UserRepositoryView.swift */,
+				70BDDE4A2B90894D00BDC500 /* UserFollowersView.swift */,
+			);
+			path = SubViews;
+			sourceTree = "<group>";
+		};
+		70CAC8922BC52CC6004EECB7 /* AvatarImage */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE5C2B95A4D600BDC500 /* AvatarImageView.swift */,
+				70BDDE5E2B95A50200BDC500 /* AvatarImageViewModel.swift */,
+			);
+			path = AvatarImage;
+			sourceTree = "<group>";
+		};
+		70CAC8932BC52D81004EECB7 /* Enums */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE452B905EC500BDC500 /* Constants.swift */,
+			);
+			path = Enums;
+			sourceTree = "<group>";
+		};
+		70CAC8942BC52D92004EECB7 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE502B91960B00BDC500 /* GFButton.swift */,
+			);
+			path = Buttons;
+			sourceTree = "<group>";
+		};
+		70CAC8952BC52DD1004EECB7 /* Root App */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE1B2B8A0DC300BDC500 /* GHFollowersApp.swift */,
+			);
+			path = "Root App";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -372,7 +377,6 @@
 				70BDDE4F2B91884E00BDC500 /* UserInfoViewModel.swift in Sources */,
 				70BDDE592B95A00700BDC500 /* FavoritesViewModel.swift in Sources */,
 				70BDDE2F2B8C4F7200BDC500 /* User.swift in Sources */,
-				70BDDE4D2B9186CE00BDC500 /* UserInfoHeaderViewModel.swift in Sources */,
 				70BDDE2A2B8B2F0000BDC500 /* FavoritesView.swift in Sources */,
 				70BDDE572B91DBCD00BDC500 /* PersistenceManager.swift in Sources */,
 				70BDDE462B905EC500BDC500 /* Constants.swift in Sources */,

@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@Observable
 final class SearchViewModel {
     
     func searchFollowers(of username: String) async throws {
