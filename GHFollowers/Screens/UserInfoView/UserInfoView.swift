@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct UserInfoView: View {
-    @State var viewModel = UserInfoViewModel()
-    @Environment(\.dismiss) var dismiss
+    @StateObject var viewModel = UserInfoViewModel()
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     var username: String
     
     var body: some View {
-        NavigationStack {
+        NavigationView {
             ScrollView(.vertical) {
                 VStack(spacing: 32) {
                     if viewModel.user != .placeholder {
@@ -37,14 +37,12 @@ struct UserInfoView: View {
                 
             }
             .onAppear() {
-                Task {
-                    await viewModel.getUserInfo(of: username)
-                }
+                viewModel.getUserInfo(of: username)
             }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 Button("Done") {
-                    dismiss()
+                    presentationMode.wrappedValue.dismiss()
                 }
             }
         }

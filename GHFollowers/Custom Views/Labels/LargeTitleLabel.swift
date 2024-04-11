@@ -17,6 +17,7 @@ struct LargeTitleLabel: View {
     var body: some View {
         Text(text)
             .font(.title)
+            .bold()
             .foregroundColor(Color.primary)
             .minimumScaleFactor(0.75)
     }

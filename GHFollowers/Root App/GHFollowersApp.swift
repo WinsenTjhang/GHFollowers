@@ -9,7 +9,6 @@ import SwiftUI
 
 @main
 struct GHFollowersApp: App {
-    @State var persistenceManager = PersistenceManager()
     
     var body: some Scene {
         WindowGroup {
@@ -25,18 +24,15 @@ struct GHFollowersApp: App {
                         SFSymbols.onFavorites
                         Text("Favorites")
                     }
-                    
             }
-            .tint(.black)
-            .onAppear {
-                let appearance = UITabBarAppearance()
-                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
-                appearance.backgroundColor = UIColor(Color.clear.opacity(0.1))
-                UITabBar.appearance().standardAppearance = appearance
-                UITabBar.appearance().scrollEdgeAppearance = appearance
-            }
+//            .onAppear {
+//                let appearance = UITabBarAppearance()
+//                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
+//                appearance.backgroundColor = UIColor(Color.clear.opacity(0.1))
+//                UITabBar.appearance().standardAppearance = appearance
+//                
+//            }
             
         }
-        .environment(persistenceManager)
     }
 }

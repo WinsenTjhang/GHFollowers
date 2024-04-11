@@ -18,10 +18,9 @@ struct UserRepositoryView: View {
                         SFSymbols.repos
                         
                         VStack {
-                            BodyLabel("Public Repo")
-                            BodyLabel("\(user.publicRepos)")
+                            TitleLabel("Public Repo")
+                            TitleLabel("\(user.publicRepos)")
                         }
-                        .bold()
                     }
                     
                 }
@@ -32,10 +31,9 @@ struct UserRepositoryView: View {
                         SFSymbols.gists
                         
                         VStack {
-                            BodyLabel("Public Gists")
-                            BodyLabel("\(user.publicGists)")
+                            TitleLabel("Public Gists")
+                            TitleLabel("\(user.publicGists)")
                         }
-                        .bold()
                     }
                     
                 }

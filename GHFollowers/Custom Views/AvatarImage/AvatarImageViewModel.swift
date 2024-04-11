@@ -7,15 +7,16 @@
 
 import SwiftUI
 
-@Observable
-final class AvatarImageViewModel {
-    var image: Image = Images.placeholder
+final class AvatarImageViewModel: ObservableObject {
+    @Published var image: Image = Images.placeholder
     
-    func downloadImage(for url: String) async {
-        do {
-            image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
-        } catch {
-            print("Error downloading image:", error)
+    func downloadImage(for url: String) {
+        Task {
+            do {
+                image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
+            } catch {
+                print("Error downloading image:", error)
+            }
         }
         
     }

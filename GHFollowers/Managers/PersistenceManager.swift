@@ -7,10 +7,10 @@
 
 import SwiftUI
 
-@Observable
 final class PersistenceManager {
-    @ObservationIgnored @AppStorage("userFavorites") private var userData: Data?
-     var favorites: [Follower] = []
+    static let shared = PersistenceManager()
+    @AppStorage("userFavorites") private var userData: Data?
+    var favorites: [Follower] = []
     
     func add(favorite: Follower) throws {
         guard !favorites.contains(favorite) else {

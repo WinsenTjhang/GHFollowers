@@ -7,12 +7,18 @@
 
 import SwiftUI
 
-@Observable
-class FollowerCellViewModel {
-    var image: Image = Images.placeholder
+class FollowerCellViewModel: ObservableObject {
+    @Published var image: Image = Images.placeholder
     
-    func downloadImage(for url: String) async throws {
-        image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
+    func downloadImage(for url: String) {
+        Task {
+            do {
+                image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
+            } catch {
+                print("Image download failed")
+                print(error)
+            }
+        }
     }
     
 }

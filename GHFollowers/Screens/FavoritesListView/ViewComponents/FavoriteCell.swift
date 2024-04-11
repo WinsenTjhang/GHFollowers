@@ -15,8 +15,7 @@ struct FavoriteCell: View {
             AvatarImageView(url: user.avatarUrl)
                 .frame(width: 60, height: 60)
             LargeTitleLabel("\(user.login)")
-                .foregroundStyle(.black)
-                .bold()
+                .foregroundColor(.black)
                 .padding(.horizontal)
             Spacer()
         }
