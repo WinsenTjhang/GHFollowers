@@ -22,7 +22,7 @@ final class NetworkManager {
         
         let (data, response) = try await URLSession.shared.data(from: url)
         let httpResponse = response as? HTTPURLResponse
-        print(httpResponse!)
+        
         
         guard httpResponse?.statusCode == 200 else {
             throw GFError.invalidResponse(statusCode: httpResponse!.statusCode)

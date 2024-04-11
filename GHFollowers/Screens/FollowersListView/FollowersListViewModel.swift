@@ -21,7 +21,7 @@ class FollowersListViewModel: ObservableObject {
             do {
                 followers = try await NetworkManager.shared.getFollowers(of: username, page: pages)
                 isLoading = false
-                pages += 1
+//                pages += 1
                 if followers.count < 20 { self.hasMoreFollowers = false }
             } catch {
                 print(error)

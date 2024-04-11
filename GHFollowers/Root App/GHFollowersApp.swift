@@ -9,6 +9,9 @@ import SwiftUI
 
 @main
 struct GHFollowersApp: App {
+    init() {
+            UITabBar.appearance().backgroundColor = UIColor.systemBackground
+        }
     
     var body: some Scene {
         WindowGroup {
@@ -25,13 +28,7 @@ struct GHFollowersApp: App {
                         Text("Favorites")
                     }
             }
-//            .onAppear {
-//                let appearance = UITabBarAppearance()
-//                appearance.backgroundEffect = UIBlurEffect(style: .systemUltraThinMaterialLight)
-//                appearance.backgroundColor = UIColor(Color.clear.opacity(0.1))
-//                UITabBar.appearance().standardAppearance = appearance
-//                
-//            }
+
             
         }
     }

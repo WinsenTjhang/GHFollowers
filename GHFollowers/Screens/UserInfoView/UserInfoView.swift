@@ -13,7 +13,6 @@ struct UserInfoView: View {
     var username: String
     
     var body: some View {
-        NavigationView {
             ScrollView(.vertical) {
                 VStack(spacing: 32) {
                     if viewModel.user != .placeholder {
@@ -45,7 +44,7 @@ struct UserInfoView: View {
                     presentationMode.wrappedValue.dismiss()
                 }
             }
-        }
+        
     }
 }
 
