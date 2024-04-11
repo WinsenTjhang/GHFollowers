@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AvatarImageView: View {
-    @State var viewModel = AvatarImageViewModel()
+    @StateObject var viewModel = AvatarImageViewModel()
     let url: String
     
     var body: some View {
@@ -17,9 +17,7 @@ struct AvatarImageView: View {
             .aspectRatio(contentMode: .fit)
             .cornerRadius(10)
             .onAppear {
-                Task {
-                    await viewModel.downloadImage(for: url)
-                }
+                viewModel.downloadImage(for: url)
             }
     }
 }

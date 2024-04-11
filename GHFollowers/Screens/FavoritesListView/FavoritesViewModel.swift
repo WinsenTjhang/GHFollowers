@@ -7,21 +7,19 @@
 
 import SwiftUI
 
-@Observable
-final class FavoritesViewModel {
-    var favorites: [Follower] = []
+final class FavoritesViewModel: ObservableObject {
+    @Published var favorites: [Follower] = []
+    @Published var emptyStateMessage = "No Favorites\nAdd one on the follower screen"
     
-    static let emptyStateMessage = "No Favorites\nAdd one on the follower screen"
-    
-    func retrieveFavorites(persistenceManager: PersistenceManager) {
-        let _ = persistenceManager.retrieveFavorites()
-        favorites = persistenceManager.favorites
+    func retrieveFavorites() {
+        let _ = PersistenceManager.shared.retrieveFavorites()
+        favorites = PersistenceManager.shared.favorites
     }
     
-    func remove(index: IndexSet, persistenceManager: PersistenceManager) {
+    func remove(index: IndexSet) {
         do {
-            try persistenceManager.remove(indexSet: index)
-            favorites = persistenceManager.favorites
+            try PersistenceManager.shared.remove(indexSet: index)
+            favorites = PersistenceManager.shared.favorites
         } catch {
             print(error.localizedDescription)
             print(error)

@@ -8,12 +8,11 @@
 import SwiftUI
 
 struct FavoritesView: View {
-    @Environment(PersistenceManager.self) var persistenceManager: PersistenceManager
-    @State var viewModel = FavoritesViewModel()
+    @StateObject var viewModel = FavoritesViewModel()
     
     var body: some View {
         ZStack {
-            NavigationStack {
+            NavigationView {
                 List {
                     ForEach(viewModel.favorites, id: \.self) { follower in
                         NavigationLink(destination: FollowersListView(username: follower.login)) {
@@ -21,18 +20,18 @@ struct FavoritesView: View {
                         }
                     }
                     .onDelete(perform: { indexSet in
-                        viewModel.remove(index: indexSet, persistenceManager: persistenceManager)
+                        viewModel.remove(index: indexSet)
                     })
                     
                 }
                 .navigationTitle("Favorites")
             }
             .onAppear() {
-                viewModel.retrieveFavorites(persistenceManager: persistenceManager)
+                viewModel.retrieveFavorites()
             }
             
             if viewModel.favorites.isEmpty {
-                EmptyStateView(message: FavoritesViewModel.emptyStateMessage)
+                EmptyStateView(message: viewModel.emptyStateMessage)
             }
             
         }

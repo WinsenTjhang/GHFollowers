@@ -18,10 +18,9 @@ struct GFButton: View {
             Text(title)
                 .font(.headline)
                 .foregroundColor(.white)
-            
+                .bold()
             Spacer()
         }
-        .bold()
         .padding()
         .background(backgroundColor)
         .cornerRadius(10)

@@ -18,10 +18,10 @@ struct UserFollowersView: View {
                         SFSymbols.followers
                         
                         VStack {
-                            BodyLabel("Followers")
-                            BodyLabel("\(user.followers)")
+                            TitleLabel("Followers")
+                            TitleLabel("\(user.followers)")
                         }
-                        .bold()
+                        
                     }
                 }
                 Spacer()
@@ -31,10 +31,9 @@ struct UserFollowersView: View {
                         SFSymbols.following
                         
                         VStack {
-                            BodyLabel("Following")
-                            BodyLabel("\(user.following)")
+                            TitleLabel("Following")
+                            TitleLabel("\(user.following)")
                         }
-                        .bold()
                     }
                     
                 }

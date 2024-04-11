@@ -18,7 +18,6 @@ struct UserInfoHeaderView: View {
                 
                 VStack(alignment: .leading) {
                     LargeTitleLabel("\(user.login)")
-                        .bold()
                         .lineLimit(1)
                         .minimumScaleFactor(0.75)
                     

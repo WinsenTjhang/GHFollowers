@@ -7,24 +7,29 @@
 import SwiftUI
 import Foundation
 
-@Observable
+
 final class NetworkManager {
     static let shared = NetworkManager()
-    
+    var pagesRemaining = false
     private let baseURL = "https://api.github.com/users/"
     
-    func getFollowers(of username: String) async throws -> [Follower] {
-        let endpoint = baseURL + username + "/followers?per_page=30"
+    func getFollowers(of username: String, page: Int) async throws -> [Follower] {
+        let endpoint = baseURL + username + "/followers?per_page=20&page=\(page)"
         
         guard let url = URL(string: endpoint) else {
             throw GFError.invalidUsername
         }
         
         let (data, response) = try await URLSession.shared.data(from: url)
-        let httpResponseCode = (response as? HTTPURLResponse)?.statusCode
+        let httpResponse = response as? HTTPURLResponse
         
-        guard httpResponseCode == 200 else {
-            throw GFError.invalidResponse(statusCode: httpResponseCode!)
+        
+        guard httpResponse?.statusCode == 200 else {
+            throw GFError.invalidResponse(statusCode: httpResponse!.statusCode)
+        }
+        
+        if let linkHeader = httpResponse!.allHeaderFields["Link"] as? String {
+            pagesRemaining = isPagesRemaining(from: linkHeader)
         }
         
         do {
@@ -34,6 +39,14 @@ final class NetworkManager {
         } catch {
             throw GFError.invalidData
         }
+    }
+    
+    func isPagesRemaining(from linkHeader: String) -> Bool {
+        let links = linkHeader.components(separatedBy: ", ")
+        for link in links where link.contains("rel=\"next\"") {
+           return true
+        }
+        return false
     }
     
     func getUserInfo(for username: String) async throws -> User {

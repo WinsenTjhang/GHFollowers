@@ -8,21 +8,17 @@
 import SwiftUI
 
 struct SearchView: View {
-    @State var viewModel = SearchViewModel()
-    @State private var username = "shipmadison"
-    @State private var showAlert = false
-    @State private var alertMessage = ""
-    @State private var navigate = false
+    @StateObject var viewModel = SearchViewModel()
     
     var body: some View {
-        NavigationStack() {
+        NavigationView {
             VStack {
                 Spacer()
                 Image("gh-logo")
                     .resizable()
                     .frame(width: 170, height: 170)
                 
-                TextField("Enter Username", text: $username)
+                TextField("Enter Username", text: $viewModel.username)
                     .frame(width: 270)
                     .multilineTextAlignment(.center)
                     .padding(13)
@@ -33,33 +29,20 @@ struct SearchView: View {
                 Spacer()
                 
                 Button(action: {
-                    getFollowers()
+                    viewModel.searchFollowers()
                 }) {
                     GFButton(title: "Get Followers", backgroundColor: .green)
                 }
                 
+                NavigationLink(destination: FollowersListView(username: viewModel.username),
+                               isActive: $viewModel.navigate) {}
+                
             }
-            .navigationDestination(isPresented: $navigate) {
-                FollowersListView(username: username)
-            }
+    
         }
         .padding()
-        .alert(isPresented: $showAlert) {
-            Alert(title: Text("Sorry"), message: Text(alertMessage), dismissButton: .default(Text("OK")))
-        }
-    }
-    
-    private func getFollowers() {
-        Task {
-            do {
-                try await viewModel.searchFollowers(of: username)
-                navigate = true
-            } catch {
-                showAlert = true
-                alertMessage = "This user does not exist"
-                print("Search followers failed, \(error)")
-                print("Search followers failed, \(error.localizedDescription)")
-            }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Sorry"), message: Text(viewModel.alertMessage), dismissButton: .default(Text("OK")))
         }
     }
     

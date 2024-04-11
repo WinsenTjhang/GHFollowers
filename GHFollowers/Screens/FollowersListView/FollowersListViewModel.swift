@@ -7,24 +7,31 @@
 
 import SwiftUI
 
-@Observable
-class FollowersListViewModel {
-    var followers: [Follower] = []
+class FollowersListViewModel: ObservableObject {
+    @Published var isOnFavorite = false
+    @Published var followers: [Follower] = []
+    @Published var isLoading = true
+    var username: String = ""
     var user: Follower = .placeholder
-    var isLoading = true
+    private var hasMoreFollowers = true
+    private var pages = 1
     
-    func searchFollowers(of username: String) async {
-        do {
-            followers = try await NetworkManager.shared.getFollowers(of: username)
-            isLoading = false
-        } catch {
-            print(error)
-            print("Search followers failed, \(error.localizedDescription)")
+    func searchFollowers() {
+        Task {
+            do {
+                followers = try await NetworkManager.shared.getFollowers(of: username, page: pages)
+                isLoading = false
+//                pages += 1
+                if followers.count < 20 { self.hasMoreFollowers = false }
+            } catch {
+                print(error)
+                print("Search followers failed, \(error.localizedDescription)")
+            }
         }
     }
     
     
-    func getUserInfo(for username: String) async -> Follower? {
+    func getUserInfo() async -> Follower? {
         do {
             let user = try await NetworkManager.shared.getUserInfo(for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
@@ -37,9 +44,9 @@ class FollowersListViewModel {
     }
     
     
-    func addToFavorite(persistenceManager: PersistenceManager) {
+    func addToFavorite() {
         do {
-            try persistenceManager.add(favorite: user)
+            try PersistenceManager.shared.add(favorite: user)
         } catch {
             print(error)
             print(error.localizedDescription)
@@ -47,11 +54,11 @@ class FollowersListViewModel {
     }
     
     
-    func removeFavorite(persistenceManager: PersistenceManager) {
-        let index = IndexSet(integer: persistenceManager.favorites.firstIndex(of: user)!)
+    func removeFavorite() {
+        let index = IndexSet(integer: PersistenceManager.shared.favorites.firstIndex(of: user)!)
         
         do {
-            try persistenceManager.remove(indexSet: index)
+            try PersistenceManager.shared.remove(indexSet: index)
         } catch {
             print(error)
             print(error.localizedDescription)
@@ -59,15 +66,25 @@ class FollowersListViewModel {
     }
     
     
-    func isUserFavorite(username: String, persistenceManager: PersistenceManager) async -> Bool {
-        let _ = persistenceManager.retrieveFavorites()
-        
-        guard let user = await getUserInfo(for: username) else {
-            return false
+    func isUserFavorite() {
+        Task {
+            let _ = PersistenceManager.shared.retrieveFavorites()
+            
+            guard let user = await getUserInfo() else {return}
+            
+            self.user = user
+            isOnFavorite = PersistenceManager.shared.favorites.contains(user)
+        }
+    }
+    
+    func toggleFavorite() {
+        if !isOnFavorite {
+            addToFavorite()
+        } else {
+            removeFavorite()
         }
         
-        self.user = user
-        return persistenceManager.favorites.contains(user)
+        withAnimation(.bouncy) {isOnFavorite.toggle()}
     }
     
     
