@@ -10,10 +10,9 @@ import Foundation
 
 final class NetworkManager {
     static let shared = NetworkManager()
-    var pagesRemaining = false
     private let baseURL = "https://api.github.com/users/"
     
-    func getFollowers(of username: String, page: Int) async throws -> [Follower] {
+    func getFollowers(of username: String, page: Int) async throws -> ([Follower], Bool) {
         let endpoint = baseURL + username + "/followers?per_page=20&page=\(page)"
         
         guard let url = URL(string: endpoint) else {
@@ -28,6 +27,8 @@ final class NetworkManager {
             throw GFError.invalidResponse(statusCode: httpResponse!.statusCode)
         }
         
+        var pagesRemaining = false
+        
         if let linkHeader = httpResponse!.allHeaderFields["Link"] as? String {
             pagesRemaining = isPagesRemaining(from: linkHeader)
         }
@@ -35,19 +36,24 @@ final class NetworkManager {
         do {
             let decoder = JSONDecoder()
             decoder.keyDecodingStrategy = .convertFromSnakeCase
-            return try decoder.decode([Follower].self, from: data)
+            let decodedData = try decoder.decode([Follower].self, from: data)
+            return (decodedData, pagesRemaining)
         } catch {
             throw GFError.invalidData
         }
+        
+        
+        func isPagesRemaining(from linkHeader: String) -> Bool {
+            let links = linkHeader.components(separatedBy: ", ")
+            for link in links where link.contains("rel=\"next\"") {
+               return true
+            }
+            return false
+        }
+        
     }
     
-    func isPagesRemaining(from linkHeader: String) -> Bool {
-        let links = linkHeader.components(separatedBy: ", ")
-        for link in links where link.contains("rel=\"next\"") {
-           return true
-        }
-        return false
-    }
+    
     
     func getUserInfo(for username: String) async throws -> User {
         let endpoint = baseURL + username

@@ -19,14 +19,26 @@ class FollowersListViewModel: ObservableObject {
     func searchFollowers() {
         Task {
             do {
-                followers = try await NetworkManager.shared.getFollowers(of: username, page: pages)
+                let (followers, pagesRemaining) = try await NetworkManager.shared.getFollowers(of: username, page: pages)
+                self.followers.append(contentsOf: followers)
+                self.hasMoreFollowers = pagesRemaining
                 isLoading = false
-//                pages += 1
-                if followers.count < 20 { self.hasMoreFollowers = false }
+                if hasMoreFollowers {
+                    pages += 1
+                }
+                
             } catch {
                 print(error)
                 print("Search followers failed, \(error.localizedDescription)")
             }
+        }
+    }
+    
+    func loadContentIfNeeded(currentFollower follower: Follower) {
+        if follower == followers.last &&
+            !isLoading &&
+            hasMoreFollowers {
+            searchFollowers()
         }
     }
     

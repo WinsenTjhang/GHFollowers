@@ -20,6 +20,9 @@ struct FollowersListView: View {
                     ForEach(viewModel.followers, id: \.self) { follower in
                         NavigationLink(destination: UserInfoView(username: follower.login)) {
                             FollowerCell(follower: follower)
+                                .onAppear {
+                                    viewModel.loadContentIfNeeded(currentFollower: follower)
+                                }
                         }
                     }
                 }
@@ -34,10 +37,6 @@ struct FollowersListView: View {
                 ProgressView()
             }
             
-            
-            let _ = print(viewModel.followers.isEmpty)
-            let _ = print(viewModel.isLoading)
-            let _ = print(viewModel.followers)
             if viewModel.followers.isEmpty && !viewModel.isLoading{
                 EmptyStateView(message: "This user doesn't have any followers")
             }
