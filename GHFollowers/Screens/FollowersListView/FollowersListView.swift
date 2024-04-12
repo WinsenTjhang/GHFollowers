@@ -21,7 +21,7 @@ struct FollowersListView: View {
                         NavigationLink(destination: UserInfoView(username: follower.login)) {
                             FollowerCell(follower: follower)
                                 .onAppear {
-                                    viewModel.loadContentIfNeeded(currentFollower: follower)
+                                    viewModel.loadMoreIfNeeded(lastFollower: follower)
                                 }
                         }
                     }

@@ -10,34 +10,37 @@ import SwiftUI
 class FollowersListViewModel: ObservableObject {
     @Published var isOnFavorite = false
     @Published var followers: [Follower] = []
-    @Published var isLoading = true
-    var username: String = ""
-    var user: Follower = .placeholder
+    @Published var isLoading = false
+    @Published var showAlert = false
+    
+    private var username: String = ""
+    private var user: Follower = .placeholder
     private var hasMoreFollowers = true
-    private var pages = 1
+    private var currentPage = 1
     
     func searchFollowers() {
+        guard !isLoading else { return } // Avoid redundant network requests
+        
+        isLoading = true
+        defer { isLoading = false } // Ensure loading state is reset
+        
         Task {
             do {
-                let (followers, pagesRemaining) = try await NetworkManager.shared.getFollowers(of: username, page: pages)
+                let (followers, pagesRemaining) = try await NetworkManager.shared.getFollowers(of: username, page: currentPage)
                 self.followers.append(contentsOf: followers)
                 self.hasMoreFollowers = pagesRemaining
-                isLoading = false
                 if hasMoreFollowers {
-                    pages += 1
+                    currentPage += 1
                 }
-                
             } catch {
-                print(error)
-                print("Search followers failed, \(error.localizedDescription)")
+                print(error.localizedDescription)
+                print("Debug Info:", error)
             }
         }
     }
     
-    func loadContentIfNeeded(currentFollower follower: Follower) {
-        if follower == followers.last &&
-            !isLoading &&
-            hasMoreFollowers {
+    func loadMoreIfNeeded(lastFollower currentFollower: Follower) {
+        if currentFollower == followers.last && hasMoreFollowers {
             searchFollowers()
         }
     }
@@ -48,8 +51,8 @@ class FollowersListViewModel: ObservableObject {
             let user = try await NetworkManager.shared.getUserInfo(for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
-            print(error)
-            print("Get user info failed: \(error.localizedDescription)")
+            print(error.localizedDescription)
+            print("Debug Info:", error)
         }
         
         return nil
@@ -60,8 +63,8 @@ class FollowersListViewModel: ObservableObject {
         do {
             try PersistenceManager.shared.add(favorite: user)
         } catch {
-            print(error)
             print(error.localizedDescription)
+            print("Debug Info:", error)
         }
     }
     
@@ -72,20 +75,24 @@ class FollowersListViewModel: ObservableObject {
         do {
             try PersistenceManager.shared.remove(indexSet: index)
         } catch {
-            print(error)
             print(error.localizedDescription)
+            print("Debug Info:", error)
         }
     }
     
     
     func isUserFavorite() {
         Task {
-            let _ = PersistenceManager.shared.retrieveFavorites()
-            
-            guard let user = await getUserInfo() else {return}
-            
-            self.user = user
-            isOnFavorite = PersistenceManager.shared.favorites.contains(user)
+            do {
+                let _ = try PersistenceManager.shared.retrieveFavorites()
+                guard let user = await getUserInfo() else {return}
+                
+                self.user = user
+                isOnFavorite = PersistenceManager.shared.favorites.contains(user)
+            } catch {
+                print(error.localizedDescription)
+                print("Debug Info:", error)
+            }
         }
     }
     

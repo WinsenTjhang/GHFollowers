@@ -18,7 +18,7 @@
 		70BDDE342B8C573600BDC500 /* FollowersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE332B8C573600BDC500 /* FollowersListView.swift */; };
 		70BDDE362B8C902E00BDC500 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE352B8C902E00BDC500 /* UserInfoView.swift */; };
 		70BDDE392B8F20F900BDC500 /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */; };
-		70BDDE3C2B8F295800BDC500 /* GFError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3B2B8F295800BDC500 /* GFError.swift */; };
+		70BDDE3C2B8F295800BDC500 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3B2B8F295800BDC500 /* NetworkError.swift */; };
 		70BDDE3F2B90465300BDC500 /* FollowersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3E2B90465300BDC500 /* FollowersListViewModel.swift */; };
 		70BDDE412B905AF300BDC500 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE402B905AF300BDC500 /* FollowerCell.swift */; };
 		70BDDE432B905B4600BDC500 /* FollowerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE422B905B4600BDC500 /* FollowerCellViewModel.swift */; };
@@ -38,6 +38,7 @@
 		70BDDE6B2B96C52300BDC500 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6A2B96C52300BDC500 /* TitleLabel.swift */; };
 		70BDDE6D2B96C55300BDC500 /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */; };
 		70BDDE702B973F7B00BDC500 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */; };
+		70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,7 +54,7 @@
 		70BDDE332B8C573600BDC500 /* FollowersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListView.swift; sourceTree = "<group>"; };
 		70BDDE352B8C902E00BDC500 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderView.swift; sourceTree = "<group>"; };
-		70BDDE3B2B8F295800BDC500 /* GFError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GFError.swift; sourceTree = "<group>"; };
+		70BDDE3B2B8F295800BDC500 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		70BDDE3E2B90465300BDC500 /* FollowersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListViewModel.swift; sourceTree = "<group>"; };
 		70BDDE402B905AF300BDC500 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		70BDDE422B905B4600BDC500 /* FollowerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCellViewModel.swift; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 		70BDDE6A2B96C52300BDC500 /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,7 +110,8 @@
 				70CAC8952BC52DD1004EECB7 /* Root App */,
 				70BDDE322B8C571600BDC500 /* Screens */,
 				70BDDE2D2B8C4F5D00BDC500 /* Model */,
-				70BDDE552B91DBB500BDC500 /* Managers */,
+				70BDDE552B91DBB500BDC500 /* Persistence */,
+				70CAC8D32BC8D96E004EECB7 /* Networking */,
 				70BDDE442B905EAD00BDC500 /* Utilities */,
 				70BDDE372B8F20D100BDC500 /* Custom Views */,
 				70BDDE1F2B8A0DC500BDC500 /* Assets.xcassets */,
@@ -158,7 +161,7 @@
 		70BDDE3A2B8F291100BDC500 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE3B2B8F295800BDC500 /* GFError.swift */,
+				70BDDE3B2B8F295800BDC500 /* NetworkError.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -191,13 +194,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		70BDDE552B91DBB500BDC500 /* Managers */ = {
+		70BDDE552B91DBB500BDC500 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE2B2B8B32F200BDC500 /* NetworkManager.swift */,
 				70BDDE562B91DBCD00BDC500 /* PersistenceManager.swift */,
 			);
-			path = Managers;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		70BDDE602B96AAEC00BDC500 /* FavoritesListView */ = {
@@ -300,6 +302,15 @@
 			path = ViewComponents;
 			sourceTree = "<group>";
 		};
+		70CAC8D32BC8D96E004EECB7 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				70BDDE2B2B8B32F200BDC500 /* NetworkManager.swift */,
+				70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -372,7 +383,7 @@
 			files = (
 				70BDDE3F2B90465300BDC500 /* FollowersListViewModel.swift in Sources */,
 				70BDDE2C2B8B32F200BDC500 /* NetworkManager.swift in Sources */,
-				70BDDE3C2B8F295800BDC500 /* GFError.swift in Sources */,
+				70BDDE3C2B8F295800BDC500 /* NetworkError.swift in Sources */,
 				70BDDE362B8C902E00BDC500 /* UserInfoView.swift in Sources */,
 				70BDDE1E2B8A0DC300BDC500 /* SearchView.swift in Sources */,
 				70BDDE1C2B8A0DC300BDC500 /* GHFollowersApp.swift in Sources */,
@@ -380,6 +391,7 @@
 				70BDDE342B8C573600BDC500 /* FollowersListView.swift in Sources */,
 				70BDDE392B8F20F900BDC500 /* UserInfoHeaderView.swift in Sources */,
 				70BDDE492B90891300BDC500 /* UserRepositoryView.swift in Sources */,
+				70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */,
 				70BDDE4B2B90894D00BDC500 /* UserFollowersView.swift in Sources */,
 				70BDDE312B8C559900BDC500 /* Follower.swift in Sources */,
 				70BDDE4F2B91884E00BDC500 /* UserInfoViewModel.swift in Sources */,
