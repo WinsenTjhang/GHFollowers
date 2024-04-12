@@ -19,7 +19,15 @@ struct AvatarImageView: View {
             .onAppear {
                 viewModel.downloadImage(for: url)
             }
+            .alert(isPresented: $viewModel.showErrorAlert) {
+                Alert(
+                    title: Text("Error"),
+                    message: Text(viewModel.errorMessage),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
     }
+    
 }
 
 #Preview {

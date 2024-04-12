@@ -35,6 +35,13 @@ struct FavoritesView: View {
             }
             
         }
+        .alert(isPresented: $viewModel.showErrorAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.errorMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
             
     }
 }
