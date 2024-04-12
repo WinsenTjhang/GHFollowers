@@ -12,8 +12,13 @@ final class FavoritesViewModel: ObservableObject {
     @Published var emptyStateMessage = "No Favorites\nAdd one on the follower screen"
     
     func retrieveFavorites() {
-        let _ = PersistenceManager.shared.retrieveFavorites()
-        favorites = PersistenceManager.shared.favorites
+        do {
+            let _ = try PersistenceManager.shared.retrieveFavorites()
+            favorites = PersistenceManager.shared.favorites
+        } catch {
+            print(error.localizedDescription)
+            print(error)
+        }
     }
     
     func remove(index: IndexSet) {
