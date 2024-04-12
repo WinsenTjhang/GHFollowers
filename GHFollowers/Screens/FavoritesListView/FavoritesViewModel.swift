@@ -10,14 +10,17 @@ import SwiftUI
 final class FavoritesViewModel: ObservableObject {
     @Published var favorites: [Follower] = []
     @Published var emptyStateMessage = "No Favorites\nAdd one on the follower screen"
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
     
     func retrieveFavorites() {
         do {
             let _ = try PersistenceManager.shared.retrieveFavorites()
             favorites = PersistenceManager.shared.favorites
         } catch {
-            print(error.localizedDescription)
-            print(error)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
+            print("Debug Info:", error)
         }
     }
     
@@ -26,8 +29,9 @@ final class FavoritesViewModel: ObservableObject {
             try PersistenceManager.shared.remove(indexSet: index)
             favorites = PersistenceManager.shared.favorites
         } catch {
-            print(error.localizedDescription)
-            print(error)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
+            print("Debug Info:", error)
         }
     }
 }

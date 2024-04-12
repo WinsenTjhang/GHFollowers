@@ -9,13 +9,17 @@ import SwiftUI
 
 class UserInfoViewModel: ObservableObject {
     @Published var user: User = .placeholder
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
     
     func getUserInfo(of username: String) {
         Task {
             do {
                 user = try await NetworkManager.shared.getUserInfo(for: username)
             } catch {
-                print("Error fetching user info:", error)
+                showErrorAlert = true
+                errorMessage = error.localizedDescription
+                print("Debug Info:", error)
             }
         }
     }

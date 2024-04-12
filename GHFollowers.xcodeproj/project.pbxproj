@@ -18,7 +18,7 @@
 		70BDDE342B8C573600BDC500 /* FollowersListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE332B8C573600BDC500 /* FollowersListView.swift */; };
 		70BDDE362B8C902E00BDC500 /* UserInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE352B8C902E00BDC500 /* UserInfoView.swift */; };
 		70BDDE392B8F20F900BDC500 /* UserInfoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */; };
-		70BDDE3C2B8F295800BDC500 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3B2B8F295800BDC500 /* NetworkError.swift */; };
+		70BDDE3C2B8F295800BDC500 /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3B2B8F295800BDC500 /* Error.swift */; };
 		70BDDE3F2B90465300BDC500 /* FollowersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE3E2B90465300BDC500 /* FollowersListViewModel.swift */; };
 		70BDDE412B905AF300BDC500 /* FollowerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE402B905AF300BDC500 /* FollowerCell.swift */; };
 		70BDDE432B905B4600BDC500 /* FollowerCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE422B905B4600BDC500 /* FollowerCellViewModel.swift */; };
@@ -54,7 +54,7 @@
 		70BDDE332B8C573600BDC500 /* FollowersListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListView.swift; sourceTree = "<group>"; };
 		70BDDE352B8C902E00BDC500 /* UserInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoView.swift; sourceTree = "<group>"; };
 		70BDDE382B8F20F900BDC500 /* UserInfoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoHeaderView.swift; sourceTree = "<group>"; };
-		70BDDE3B2B8F295800BDC500 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		70BDDE3B2B8F295800BDC500 /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		70BDDE3E2B90465300BDC500 /* FollowersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowersListViewModel.swift; sourceTree = "<group>"; };
 		70BDDE402B905AF300BDC500 /* FollowerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCell.swift; sourceTree = "<group>"; };
 		70BDDE422B905B4600BDC500 /* FollowerCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCellViewModel.swift; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 		70BDDE3A2B8F291100BDC500 /* Error */ = {
 			isa = PBXGroup;
 			children = (
-				70BDDE3B2B8F295800BDC500 /* NetworkError.swift */,
+				70BDDE3B2B8F295800BDC500 /* Error.swift */,
 			);
 			path = Error;
 			sourceTree = "<group>";
@@ -383,7 +383,7 @@
 			files = (
 				70BDDE3F2B90465300BDC500 /* FollowersListViewModel.swift in Sources */,
 				70BDDE2C2B8B32F200BDC500 /* NetworkManager.swift in Sources */,
-				70BDDE3C2B8F295800BDC500 /* NetworkError.swift in Sources */,
+				70BDDE3C2B8F295800BDC500 /* Error.swift in Sources */,
 				70BDDE362B8C902E00BDC500 /* UserInfoView.swift in Sources */,
 				70BDDE1E2B8A0DC300BDC500 /* SearchView.swift in Sources */,
 				70BDDE1C2B8A0DC300BDC500 /* GHFollowersApp.swift in Sources */,

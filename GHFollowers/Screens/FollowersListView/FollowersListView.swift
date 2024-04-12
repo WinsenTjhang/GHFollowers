@@ -47,6 +47,13 @@ struct FollowersListView: View {
             viewModel.searchFollowers()
             viewModel.isUserFavorite()
         }
+        .alert(isPresented: $viewModel.showErrorAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(viewModel.errorMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
         
     }
     

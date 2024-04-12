@@ -11,12 +11,13 @@ class FollowersListViewModel: ObservableObject {
     @Published var isOnFavorite = false
     @Published var followers: [Follower] = []
     @Published var isLoading = false
-    @Published var showAlert = false
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
     
-    private var username: String = ""
-    private var user: Follower = .placeholder
-    private var hasMoreFollowers = true
-    private var currentPage = 1
+    var username: String = ""
+    var user: Follower = .placeholder
+    var hasMoreFollowers = true
+    var currentPage = 1
     
     func searchFollowers() {
         guard !isLoading else { return } // Avoid redundant network requests
@@ -33,7 +34,8 @@ class FollowersListViewModel: ObservableObject {
                     currentPage += 1
                 }
             } catch {
-                print(error.localizedDescription)
+                showErrorAlert = true
+                errorMessage = error.localizedDescription
                 print("Debug Info:", error)
             }
         }
@@ -51,7 +53,8 @@ class FollowersListViewModel: ObservableObject {
             let user = try await NetworkManager.shared.getUserInfo(for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
-            print(error.localizedDescription)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
             print("Debug Info:", error)
         }
         
@@ -63,7 +66,8 @@ class FollowersListViewModel: ObservableObject {
         do {
             try PersistenceManager.shared.add(favorite: user)
         } catch {
-            print(error.localizedDescription)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
             print("Debug Info:", error)
         }
     }
@@ -75,7 +79,8 @@ class FollowersListViewModel: ObservableObject {
         do {
             try PersistenceManager.shared.remove(indexSet: index)
         } catch {
-            print(error.localizedDescription)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
             print("Debug Info:", error)
         }
     }
@@ -90,7 +95,8 @@ class FollowersListViewModel: ObservableObject {
                 self.user = user
                 isOnFavorite = PersistenceManager.shared.favorites.contains(user)
             } catch {
-                print(error.localizedDescription)
+                showErrorAlert = true
+                errorMessage = error.localizedDescription
                 print("Debug Info:", error)
             }
         }
