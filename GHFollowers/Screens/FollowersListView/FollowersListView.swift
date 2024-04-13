@@ -44,6 +44,8 @@ struct FollowersListView: View {
         }
         .onAppear() {
             viewModel.username = username
+            viewModel.followers = []
+            viewModel.currentPage = 1
             viewModel.searchFollowers()
             viewModel.isUserFavorite()
         }

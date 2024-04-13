@@ -10,6 +10,7 @@ import SwiftUI
 class FollowerCellViewModel: ObservableObject {
     @Published var image: Image = Images.placeholder
     
+    @MainActor
     func downloadImage(for url: String) {
         Task {
             do {

@@ -12,6 +12,7 @@ final class AvatarImageViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var errorMessage = ""
     
+    @MainActor
     func downloadImage(for url: String) {
         Task {
             do {

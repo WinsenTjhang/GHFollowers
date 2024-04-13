@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+@MainActor
 class FollowersListViewModel: ObservableObject {
     @Published var isOnFavorite = false
     @Published var followers: [Follower] = []
@@ -16,7 +17,7 @@ class FollowersListViewModel: ObservableObject {
     
     var username: String = ""
     var user: Follower = .placeholder
-    var hasMoreFollowers = true
+    var hasMoreFollowers = false
     var currentPage = 1
     
     func searchFollowers() {
@@ -46,7 +47,6 @@ class FollowersListViewModel: ObservableObject {
             searchFollowers()
         }
     }
-    
     
     func getUserInfo() async -> Follower? {
         do {

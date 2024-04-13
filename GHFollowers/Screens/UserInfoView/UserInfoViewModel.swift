@@ -12,6 +12,7 @@ class UserInfoViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var errorMessage = ""
     
+    @MainActor
     func getUserInfo(of username: String) {
         Task {
             do {

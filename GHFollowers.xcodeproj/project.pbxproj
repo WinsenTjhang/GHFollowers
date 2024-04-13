@@ -39,7 +39,19 @@
 		70BDDE6D2B96C55300BDC500 /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */; };
 		70BDDE702B973F7B00BDC500 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */; };
 		70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */; };
+		70CAC8DD2BC910DC004EECB7 /* GHFollowersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */; };
+		70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		70CAC8DE2BC910DC004EECB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 70BDDE102B8A0DC300BDC500 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 70BDDE172B8A0DC300BDC500;
+			remoteInfo = GHFollowers;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		70BDDE182B8A0DC300BDC500 /* GHFollowers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHFollowers.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,10 +87,20 @@
 		70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		70CAC8DA2BC910DC004EECB7 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersTests.swift; sourceTree = "<group>"; };
+		70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		70BDDE152B8A0DC300BDC500 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70CAC8D72BC910DC004EECB7 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -92,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				70BDDE1A2B8A0DC300BDC500 /* GHFollowers */,
+				70CAC8DB2BC910DC004EECB7 /* GHFollowersTests */,
 				70BDDE192B8A0DC300BDC500 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -100,6 +123,7 @@
 			isa = PBXGroup;
 			children = (
 				70BDDE182B8A0DC300BDC500 /* GHFollowers.app */,
+				70CAC8DA2BC910DC004EECB7 /* GHFollowersTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -311,6 +335,15 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		70CAC8DB2BC910DC004EECB7 /* GHFollowersTests */ = {
+			isa = PBXGroup;
+			children = (
+				70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */,
+				70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */,
+			);
+			path = GHFollowersTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -331,6 +364,24 @@
 			productReference = 70BDDE182B8A0DC300BDC500 /* GHFollowers.app */;
 			productType = "com.apple.product-type.application";
 		};
+		70CAC8D92BC910DC004EECB7 /* GHFollowersTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 70CAC8E22BC910DC004EECB7 /* Build configuration list for PBXNativeTarget "GHFollowersTests" */;
+			buildPhases = (
+				70CAC8D62BC910DC004EECB7 /* Sources */,
+				70CAC8D72BC910DC004EECB7 /* Frameworks */,
+				70CAC8D82BC910DC004EECB7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				70CAC8DF2BC910DC004EECB7 /* PBXTargetDependency */,
+			);
+			name = GHFollowersTests;
+			productName = GHFollowersTests;
+			productReference = 70CAC8DA2BC910DC004EECB7 /* GHFollowersTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -343,6 +394,10 @@
 				TargetAttributes = {
 					70BDDE172B8A0DC300BDC500 = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					70CAC8D92BC910DC004EECB7 = {
+						CreatedOnToolsVersion = 15.2;
+						TestTargetID = 70BDDE172B8A0DC300BDC500;
 					};
 				};
 			};
@@ -360,6 +415,7 @@
 			projectRoot = "";
 			targets = (
 				70BDDE172B8A0DC300BDC500 /* GHFollowers */,
+				70CAC8D92BC910DC004EECB7 /* GHFollowersTests */,
 			);
 		};
 /* End PBXProject section */
@@ -371,6 +427,13 @@
 			files = (
 				70BDDE232B8A0DC500BDC500 /* Preview Assets.xcassets in Resources */,
 				70BDDE202B8A0DC500BDC500 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		70CAC8D82BC910DC004EECB7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +477,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		70CAC8D62BC910DC004EECB7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */,
+				70CAC8DD2BC910DC004EECB7 /* GHFollowersTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		70CAC8DF2BC910DC004EECB7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 70BDDE172B8A0DC300BDC500 /* GHFollowers */;
+			targetProxy = 70CAC8DE2BC910DC004EECB7 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		70BDDE242B8A0DC500BDC500 /* Debug */ = {
@@ -594,6 +674,40 @@
 			};
 			name = Release;
 		};
+		70CAC8E02BC910DC004EECB7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = win.GHFollowersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GHFollowers.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GHFollowers";
+			};
+			name = Debug;
+		};
+		70CAC8E12BC910DC004EECB7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = win.GHFollowersTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GHFollowers.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GHFollowers";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -611,6 +725,15 @@
 			buildConfigurations = (
 				70BDDE272B8A0DC500BDC500 /* Debug */,
 				70BDDE282B8A0DC500BDC500 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		70CAC8E22BC910DC004EECB7 /* Build configuration list for PBXNativeTarget "GHFollowersTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				70CAC8E02BC910DC004EECB7 /* Debug */,
+				70CAC8E12BC910DC004EECB7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

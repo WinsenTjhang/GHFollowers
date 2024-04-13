@@ -13,6 +13,7 @@ final class SearchViewModel: ObservableObject {
     @Published var alertMessage = ""
     @Published var navigate = false
     
+    @MainActor
     func searchFollowers() {
         Task {
             do {
