@@ -39,8 +39,12 @@
 		70BDDE6D2B96C55300BDC500 /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */; };
 		70BDDE702B973F7B00BDC500 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */; };
 		70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */; };
-		70CAC8DD2BC910DC004EECB7 /* GHFollowersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */; };
 		70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */; };
+		70D095BC2BCFAC8A0003A499 /* MockURLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */; };
+		70D095C12BCFBD830003A499 /* StaticJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D095C02BCFBD830003A499 /* StaticJSONDecoder.swift */; };
+		70D095C42BCFDB180003A499 /* UserFollowersStaticData.json in Resources */ = {isa = PBXBuildFile; fileRef = 70D095BD2BCFBBD10003A499 /* UserFollowersStaticData.json */; };
+		70D095C62BD254950003A499 /* UserInfoStaticData.json in Resources */ = {isa = PBXBuildFile; fileRef = 70D095C52BD254950003A499 /* UserInfoStaticData.json */; };
+		70D095C82BD25E750003A499 /* image.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 70D095C72BD25E750003A499 /* image.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -88,8 +92,12 @@
 		70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		70CAC8DA2BC910DC004EECB7 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHFollowersTests.swift; sourceTree = "<group>"; };
 		70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionProtocol.swift; sourceTree = "<group>"; };
+		70D095BD2BCFBBD10003A499 /* UserFollowersStaticData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserFollowersStaticData.json; sourceTree = "<group>"; };
+		70D095C02BCFBD830003A499 /* StaticJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticJSONDecoder.swift; sourceTree = "<group>"; };
+		70D095C52BD254950003A499 /* UserInfoStaticData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserInfoStaticData.json; sourceTree = "<group>"; };
+		70D095C72BD25E750003A499 /* image.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +139,7 @@
 		70BDDE1A2B8A0DC300BDC500 /* GHFollowers */ = {
 			isa = PBXGroup;
 			children = (
+				70D095C22BCFBF600003A499 /* Resources */,
 				70CAC8952BC52DD1004EECB7 /* Root App */,
 				70BDDE322B8C571600BDC500 /* Screens */,
 				70BDDE2D2B8C4F5D00BDC500 /* Model */,
@@ -203,6 +212,7 @@
 		70BDDE442B905EAD00BDC500 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				70D095BF2BCFBD690003A499 /* Decoder */,
 				70CAC8932BC52D81004EECB7 /* Enums */,
 				70BDDE3A2B8F291100BDC500 /* Error */,
 				70BDDE522B919C3D00BDC500 /* Extensions */,
@@ -338,10 +348,36 @@
 		70CAC8DB2BC910DC004EECB7 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
-				70CAC8DC2BC910DC004EECB7 /* GHFollowersTests.swift */,
 				70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */,
+				70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */,
 			);
 			path = GHFollowersTests;
+			sourceTree = "<group>";
+		};
+		70D095BF2BCFBD690003A499 /* Decoder */ = {
+			isa = PBXGroup;
+			children = (
+				70D095C02BCFBD830003A499 /* StaticJSONDecoder.swift */,
+			);
+			path = Decoder;
+			sourceTree = "<group>";
+		};
+		70D095C22BCFBF600003A499 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				70D095C32BCFBF6A0003A499 /* JSON */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		70D095C32BCFBF6A0003A499 /* JSON */ = {
+			isa = PBXGroup;
+			children = (
+				70D095C72BD25E750003A499 /* image.jpeg */,
+				70D095BD2BCFBBD10003A499 /* UserFollowersStaticData.json */,
+				70D095C52BD254950003A499 /* UserInfoStaticData.json */,
+			);
+			path = JSON;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -425,7 +461,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70D095C62BD254950003A499 /* UserInfoStaticData.json in Resources */,
+				70D095C82BD25E750003A499 /* image.jpeg in Resources */,
 				70BDDE232B8A0DC500BDC500 /* Preview Assets.xcassets in Resources */,
+				70D095C42BCFDB180003A499 /* UserFollowersStaticData.json in Resources */,
 				70BDDE202B8A0DC500BDC500 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -454,6 +493,7 @@
 				70BDDE342B8C573600BDC500 /* FollowersListView.swift in Sources */,
 				70BDDE392B8F20F900BDC500 /* UserInfoHeaderView.swift in Sources */,
 				70BDDE492B90891300BDC500 /* UserRepositoryView.swift in Sources */,
+				70D095C12BCFBD830003A499 /* StaticJSONDecoder.swift in Sources */,
 				70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */,
 				70BDDE4B2B90894D00BDC500 /* UserFollowersView.swift in Sources */,
 				70BDDE312B8C559900BDC500 /* Follower.swift in Sources */,
@@ -482,7 +522,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */,
-				70CAC8DD2BC910DC004EECB7 /* GHFollowersTests.swift in Sources */,
+				70D095BC2BCFAC8A0003A499 /* MockURLSessionProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

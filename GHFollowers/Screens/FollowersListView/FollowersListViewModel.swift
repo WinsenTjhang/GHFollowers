@@ -9,6 +9,7 @@ import SwiftUI
 
 @MainActor
 class FollowersListViewModel: ObservableObject {
+    
     @Published var isOnFavorite = false
     @Published var followers: [Follower] = []
     @Published var isLoading = false
@@ -20,7 +21,7 @@ class FollowersListViewModel: ObservableObject {
     var hasMoreFollowers = false
     var currentPage = 1
     
-    func searchFollowers() {
+    func fetchFollowers() {
         guard !isLoading else { return } // Avoid redundant network requests
         
         isLoading = true
@@ -28,9 +29,9 @@ class FollowersListViewModel: ObservableObject {
         
         Task {
             do {
-                let (followers, pagesRemaining) = try await NetworkManager.shared.getFollowers(of: username, page: currentPage)
+                let (followers, hasMorePages) = try await NetworkManager.shared.getFollowers(of: username, page: currentPage)
                 self.followers.append(contentsOf: followers)
-                self.hasMoreFollowers = pagesRemaining
+                self.hasMoreFollowers = hasMorePages
                 if hasMoreFollowers {
                     currentPage += 1
                 }
@@ -44,7 +45,7 @@ class FollowersListViewModel: ObservableObject {
     
     func loadMoreIfNeeded(lastFollower currentFollower: Follower) {
         if currentFollower == followers.last && hasMoreFollowers {
-            searchFollowers()
+            fetchFollowers()
         }
     }
     

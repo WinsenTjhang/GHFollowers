@@ -8,6 +8,7 @@
 import SwiftUI
 
 final class SearchViewModel: ObservableObject {
+    
     @Published var username = "shipmadison"
     @Published var showAlert = false
     @Published var alertMessage = ""
