@@ -7,8 +7,14 @@
 import SwiftUI
 import Foundation
 
+protocol NetworkManagerProtocol {
+    
+    func getFollowers(session: URLSession, of username: String, page: Int) async throws -> ([Follower], Bool)
+    func getUserInfo(session: URLSession, for username: String) async throws -> User
+    func downloadImage(session: URLSession, urlString: String) async throws -> UIImage
+}
 
-final class NetworkManager {
+final class NetworkManager: NetworkManagerProtocol {
     
     let networkService = NetworkService()
     static let shared = NetworkManager()

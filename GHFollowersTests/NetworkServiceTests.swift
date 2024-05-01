@@ -30,7 +30,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testGetFollowers_Success() async throws {
-        
         guard let path = Bundle.main.path(forResource: "UserFollowersStaticData", ofType: "json"),
               let data = FileManager.default.contents(atPath: path) else {
             XCTFail("Failed to get the static users file")
@@ -54,7 +53,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testGetFollowers_InvalidStatusCode_404() async {
-        
         let statusCode = 404
         
         MockURLSessionProtocol.loadingHandler = {
@@ -82,7 +80,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testPerformRequest_decodingFailed() async {
-        
         let invalidData = "{'logyin': 'testuser', 'id': 'not-an-integer'}".data(using: .utf8)
         let statusCode = 200
         
@@ -107,7 +104,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testIfMorePagesAvailable_True() async throws {
-        
         guard let path = Bundle.main.path(forResource: "UserFollowersStaticData", ofType: "json"),
               let data = FileManager.default.contents(atPath: path) else {
             XCTFail("Failed to get the static users file")
@@ -132,7 +128,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testIfMorePagesAvailable_False() async throws {
-        
         guard let path = Bundle.main.path(forResource: "UserFollowersStaticData", ofType: "json"),
               let data = FileManager.default.contents(atPath: path) else {
             XCTFail("Failed to get the static users file")
@@ -156,7 +151,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testGetUserInfo_Success() async throws {
-        
         guard let path = Bundle.main.path(forResource: "UserInfoStaticData", ofType: "json"),
               let data = FileManager.default.contents(atPath: path) else {
             XCTFail("Failed to get the static users file")
@@ -180,7 +174,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testDownloadImage_Success() async throws {
-        
         guard let path = Bundle.main.path(forResource: "image", ofType: "jpeg"),
               let data = FileManager.default.contents(atPath: path) else {
             XCTFail("Failed to get the static users file")
@@ -212,7 +205,6 @@ class NetworkingManagerTests: XCTestCase {
     }
     
     func testDownloadImage_Failed_InvalidImage() async throws {
-        
         let statusCode = 200
         let avatarURL = "https://avatars.githubusercontent.com/u/9124240?v=4"
         

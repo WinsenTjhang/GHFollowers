@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-@MainActor
 class FollowersListViewModel: ObservableObject {
     
     @Published var isOnFavorite = false
@@ -21,15 +20,26 @@ class FollowersListViewModel: ObservableObject {
     var hasMoreFollowers = false
     var currentPage = 1
     
+    private let networkManager: NetworkManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+    
+    @MainActor
     func fetchFollowers() {
-        guard !isLoading else { return } // Avoid redundant network requests
-        
-        isLoading = true
-        defer { isLoading = false } // Ensure loading state is reset
-        
         Task {
+            guard !isLoading else { return } // Avoid redundant network requests
+            
+            isLoading = true
+            defer {
+                isLoading = false
+                completionHandler?()
+            }
+            
             do {
-                let (followers, hasMorePages) = try await NetworkManager.shared.getFollowers(of: username, page: currentPage)
+                let (followers, hasMorePages) = try await networkManager.getFollowers(session: .shared, of: username, page: currentPage)
                 self.followers.append(contentsOf: followers)
                 self.hasMoreFollowers = hasMorePages
                 if hasMoreFollowers {
@@ -43,15 +53,17 @@ class FollowersListViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func loadMoreIfNeeded(lastFollower currentFollower: Follower) {
         if currentFollower == followers.last && hasMoreFollowers {
             fetchFollowers()
         }
     }
     
+    @MainActor
     func getUserInfo() async -> Follower? {
         do {
-            let user = try await NetworkManager.shared.getUserInfo(for: username)
+            let user = try await networkManager.getUserInfo(session: .shared, for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
             showErrorAlert = true
