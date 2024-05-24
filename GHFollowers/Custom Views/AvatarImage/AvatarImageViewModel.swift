@@ -9,20 +9,21 @@ import SwiftUI
 
 final class AvatarImageViewModel: ObservableObject {
     @Published var image: Image = Images.placeholder
-    @Published var showErrorAlert = false
-    @Published var errorMessage = ""
+    
+    private let networkManager: NetworkManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
     
     @MainActor
-    func downloadImage(for url: String) {
-        Task {
-            do {
-                image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
-            } catch {
-                showErrorAlert = true
-                errorMessage = error.localizedDescription
-                print("Debug Info:", error)
-            }
+    func downloadImage(for url: String) async throws {
+        defer {
+            completionHandler?()
         }
         
+        image = Image(uiImage: try await networkManager.downloadImage(session: .shared, urlString: url))
     }
+    
 }

@@ -17,14 +17,15 @@ struct AvatarImageView: View {
             .aspectRatio(contentMode: .fit)
             .cornerRadius(10)
             .onAppear {
-                viewModel.downloadImage(for: url)
-            }
-            .alert(isPresented: $viewModel.showErrorAlert) {
-                Alert(
-                    title: Text("Error"),
-                    message: Text(viewModel.errorMessage),
-                    dismissButton: .default(Text("OK"))
-                )
+                Task {
+                    do {
+                        try await viewModel.downloadImage(for: url)
+                    } catch {
+                        print("Image download failed")
+                        print(error)
+                    }
+                }
+                
             }
     }
     

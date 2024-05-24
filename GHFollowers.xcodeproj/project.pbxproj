@@ -41,8 +41,13 @@
 		70BDDE6B2B96C52300BDC500 /* TitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6A2B96C52300BDC500 /* TitleLabel.swift */; };
 		70BDDE6D2B96C55300BDC500 /* BodyLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */; };
 		70BDDE702B973F7B00BDC500 /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */; };
+		70C24CB22C003E870051FD55 /* AvatarImageViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70C24CB12C003E870051FD55 /* AvatarImageViewModelTests.swift */; };
 		70CAC8D52BC8D98C004EECB7 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */; };
 		70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */; };
+		70D007D62BF1E10100C62D5D /* MockPersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D007D52BF1E10100C62D5D /* MockPersistenceManager.swift */; };
+		70D007D82BFC6D7300C62D5D /* FavoritesViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D007D72BFC6D7300C62D5D /* FavoritesViewModelTests.swift */; };
+		70D007DA2BFCC92500C62D5D /* UserInfoViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D007D92BFCC92500C62D5D /* UserInfoViewModelTests.swift */; };
+		70D007DC2BFCD03A00C62D5D /* FollowerCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D007DB2BFCD03A00C62D5D /* FollowerCellViewModelTests.swift */; };
 		70D095BC2BCFAC8A0003A499 /* MockURLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */; };
 		70D095C12BCFBD830003A499 /* StaticJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70D095C02BCFBD830003A499 /* StaticJSONDecoder.swift */; };
 		70D095C42BCFDB180003A499 /* UserFollowersStaticData.json in Resources */ = {isa = PBXBuildFile; fileRef = 70D095BD2BCFBBD10003A499 /* UserFollowersStaticData.json */; };
@@ -96,9 +101,14 @@
 		70BDDE6A2B96C52300BDC500 /* TitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleLabel.swift; sourceTree = "<group>"; };
 		70BDDE6C2B96C55300BDC500 /* BodyLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyLabel.swift; sourceTree = "<group>"; };
 		70BDDE6F2B973F7B00BDC500 /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
+		70C24CB12C003E870051FD55 /* AvatarImageViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarImageViewModelTests.swift; sourceTree = "<group>"; };
 		70CAC8D42BC8D98C004EECB7 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		70CAC8DA2BC910DC004EECB7 /* GHFollowersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHFollowersTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		70D007D52BF1E10100C62D5D /* MockPersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPersistenceManager.swift; sourceTree = "<group>"; };
+		70D007D72BFC6D7300C62D5D /* FavoritesViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewModelTests.swift; sourceTree = "<group>"; };
+		70D007D92BFCC92500C62D5D /* UserInfoViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoViewModelTests.swift; sourceTree = "<group>"; };
+		70D007DB2BFCD03A00C62D5D /* FollowerCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowerCellViewModelTests.swift; sourceTree = "<group>"; };
 		70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSessionProtocol.swift; sourceTree = "<group>"; };
 		70D095BD2BCFBBD10003A499 /* UserFollowersStaticData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = UserFollowersStaticData.json; sourceTree = "<group>"; };
 		70D095C02BCFBD830003A499 /* StaticJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticJSONDecoder.swift; sourceTree = "<group>"; };
@@ -290,6 +300,37 @@
 			path = FollowerCell;
 			sourceTree = "<group>";
 		};
+		70C24CB32C003F680051FD55 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				7082DD802BE0F40C000F8DE5 /* SearchViewModelTests.swift */,
+				7082DD842BE236AF000F8DE5 /* FollowersListViewModelTests.swift */,
+				70D007D72BFC6D7300C62D5D /* FavoritesViewModelTests.swift */,
+				70D007D92BFCC92500C62D5D /* UserInfoViewModelTests.swift */,
+				70C24CB12C003E870051FD55 /* AvatarImageViewModelTests.swift */,
+				70D007DB2BFCD03A00C62D5D /* FollowerCellViewModelTests.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		70C24CB42C003F970051FD55 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */,
+				7082DD822BE0FF29000F8DE5 /* MockNetworkManager.swift */,
+				70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		70C24CB52C003FA80051FD55 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				70D007D52BF1E10100C62D5D /* MockPersistenceManager.swift */,
+			);
+			path = Persistence;
+			sourceTree = "<group>";
+		};
 		70CAC8912BC52C2E004EECB7 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -354,11 +395,9 @@
 		70CAC8DB2BC910DC004EECB7 /* GHFollowersTests */ = {
 			isa = PBXGroup;
 			children = (
-				70CAC8E32BC9110D004EECB7 /* NetworkServiceTests.swift */,
-				70D095BB2BCFAC8A0003A499 /* MockURLSessionProtocol.swift */,
-				7082DD802BE0F40C000F8DE5 /* SearchViewModelTests.swift */,
-				7082DD822BE0FF29000F8DE5 /* MockNetworkManager.swift */,
-				7082DD842BE236AF000F8DE5 /* FollowersListViewModelTests.swift */,
+				70C24CB52C003FA80051FD55 /* Persistence */,
+				70C24CB42C003F970051FD55 /* Networking */,
+				70C24CB32C003F680051FD55 /* ViewModels */,
 			);
 			path = GHFollowersTests;
 			sourceTree = "<group>";
@@ -531,10 +570,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CAC8E42BC9110D004EECB7 /* NetworkServiceTests.swift in Sources */,
+				70D007DA2BFCC92500C62D5D /* UserInfoViewModelTests.swift in Sources */,
 				7082DD852BE236AF000F8DE5 /* FollowersListViewModelTests.swift in Sources */,
 				70D095BC2BCFAC8A0003A499 /* MockURLSessionProtocol.swift in Sources */,
 				7082DD832BE0FF29000F8DE5 /* MockNetworkManager.swift in Sources */,
+				70C24CB22C003E870051FD55 /* AvatarImageViewModelTests.swift in Sources */,
 				7082DD812BE0F40C000F8DE5 /* SearchViewModelTests.swift in Sources */,
+				70D007D62BF1E10100C62D5D /* MockPersistenceManager.swift in Sources */,
+				70D007D82BFC6D7300C62D5D /* FavoritesViewModelTests.swift in Sources */,
+				70D007DC2BFCD03A00C62D5D /* FollowerCellViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -733,6 +777,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = win.GHFollowersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -750,6 +795,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = win.GHFollowersTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

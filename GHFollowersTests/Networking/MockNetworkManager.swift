@@ -18,7 +18,6 @@ class MockNetworkManager: NetworkManagerProtocol {
     var shouldSimulateHasMoreFollowers = false
 
     func getFollowers(session: URLSession, of username: String, page: Int) async throws -> ([Follower], Bool) {
-        
         if shouldGetFollowersSucceed {
             return (mockFollowers, shouldSimulateHasMoreFollowers)
         } else {
@@ -27,7 +26,6 @@ class MockNetworkManager: NetworkManagerProtocol {
     }
 
     func getUserInfo(session: URLSession, for username: String) async throws -> User {
-        
         if shouldGetUserInfoSucceed {
             return User.sampleUser
         } else {
@@ -36,10 +34,9 @@ class MockNetworkManager: NetworkManagerProtocol {
     }
 
     func downloadImage(session: URLSession, urlString: String) async throws -> UIImage {
-        
         if shouldDownloadImageSucceed {
-            if let data = UIImage(named: "placeholderImage")?.pngData() {
-               return UIImage(data: data) ?? UIImage()
+            if let image = UIImage(named: "avatar-placeholder") {
+               return image
             } else {
                 throw NetworkError.invalidStatusCode(statusCode: 404)
             }

@@ -21,16 +21,18 @@ class FollowersListViewModel: ObservableObject {
     var currentPage = 1
     
     private let networkManager: NetworkManagerProtocol
+    private let persistenceManager: PersistenceManagerProtocol
     var completionHandler: (() -> Void)?
     
-    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared, persistenceManager: PersistenceManagerProtocol = PersistenceManager.shared) {
         self.networkManager = networkManager
+        self.persistenceManager = persistenceManager
     }
     
     @MainActor
     func fetchFollowers() {
         Task {
-            guard !isLoading else { return } // Avoid redundant network requests
+            guard !isLoading else { return } 
             
             isLoading = true
             defer {
@@ -62,8 +64,17 @@ class FollowersListViewModel: ObservableObject {
     
     @MainActor
     func getUserInfo() async -> Follower? {
+        guard !isLoading else { return nil }
+        
+        isLoading = true
+        defer {
+            isLoading = false
+            completionHandler?()
+        }
+        
         do {
             let user = try await networkManager.getUserInfo(session: .shared, for: username)
+            print(username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
             showErrorAlert = true
@@ -77,7 +88,7 @@ class FollowersListViewModel: ObservableObject {
     
     func addToFavorite() {
         do {
-            try PersistenceManager.shared.add(favorite: user)
+            try persistenceManager.add(favorite: user)
         } catch {
             showErrorAlert = true
             errorMessage = error.localizedDescription
@@ -87,10 +98,10 @@ class FollowersListViewModel: ObservableObject {
     
     
     func removeFavorite() {
-        let index = IndexSet(integer: PersistenceManager.shared.favorites.firstIndex(of: user)!)
+        let index = IndexSet(integer: persistenceManager.favorites.firstIndex(of: user)!)
         
         do {
-            try PersistenceManager.shared.remove(indexSet: index)
+            try persistenceManager.remove(indexSet: index)
         } catch {
             showErrorAlert = true
             errorMessage = error.localizedDescription
@@ -101,12 +112,18 @@ class FollowersListViewModel: ObservableObject {
     
     func isUserFavorite() {
         Task {
+            defer {
+                completionHandler?()
+            }
+            
             do {
-                let _ = try PersistenceManager.shared.retrieveFavorites()
+                let _ = try persistenceManager.retrieveFavorites()
                 guard let user = await getUserInfo() else {return}
                 
                 self.user = user
-                isOnFavorite = PersistenceManager.shared.favorites.contains(user)
+                print(self.user)
+                isOnFavorite = persistenceManager.favorites.contains(user)
+                print("isOnfavorite: \(isOnFavorite)")
             } catch {
                 showErrorAlert = true
                 errorMessage = error.localizedDescription
