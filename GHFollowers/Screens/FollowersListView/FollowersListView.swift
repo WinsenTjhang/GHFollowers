@@ -46,7 +46,7 @@ struct FollowersListView: View {
             viewModel.username = username
             viewModel.followers = []
             viewModel.currentPage = 1
-            viewModel.searchFollowers()
+            viewModel.fetchFollowers()
             viewModel.isUserFavorite()
         }
         .alert(isPresented: $viewModel.showErrorAlert) {

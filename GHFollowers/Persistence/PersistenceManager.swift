@@ -7,7 +7,16 @@
 
 import SwiftUI
 
-final class PersistenceManager {
+protocol PersistenceManagerProtocol {
+    var favorites: [Follower] { get set }
+    
+    func add(favorite: Follower) throws
+    func remove(indexSet: IndexSet) throws
+    func retrieveFavorites() throws
+    func saveFavorites() throws
+}
+
+class PersistenceManager: PersistenceManagerProtocol {
     static let shared = PersistenceManager()
     @AppStorage("userFavorites") private var userData: Data?
     var favorites: [Follower] = []

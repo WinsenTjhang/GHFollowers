@@ -7,12 +7,11 @@
 
 import Foundation
 
-enum NetworkError: Error, LocalizedError {
+enum NetworkError: Error, LocalizedError, Equatable {
     case invalidUsername
     case invalidURL
     case unableToComplete
-    case invalidResponse(statusCode: Int)
-    case invalidData
+    case invalidStatusCode(statusCode: Int)
     
     public var errorDescription: String? {
         switch self {
@@ -20,13 +19,30 @@ enum NetworkError: Error, LocalizedError {
             return "The provided URL is not valid."
         case .unableToComplete:
             return "Unable to complete the request. Please check your internet connection."
-        case .invalidResponse(let statusCode):
+        case .invalidStatusCode(let statusCode):
             return "Invalid response from server. Status Code: \(statusCode)"
-        case .invalidData:
-            return "The received data is corrupt or invalid."
         case .invalidUsername:
             return "The username is not valid. Please try a different one."
+        
         }
+    }
+}
+
+enum DecodingError: Error, LocalizedError {
+    case invalidData
+    case failedToDecodeData
+    case invalidImageData
+    
+    public var errorDescription: String? {
+        switch self {
+        case .invalidData:
+            return "The received data is corrupt or invalid."
+        case .failedToDecodeData:
+            return "Decoding failed"
+        case .invalidImageData:
+            return "The received image data is corrupt or invalid."
+        }
+        
     }
 }
 

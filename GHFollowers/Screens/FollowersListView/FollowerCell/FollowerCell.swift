@@ -24,7 +24,14 @@ struct FollowerCell: View {
                 .minimumScaleFactor(0.75)
         }
         .onAppear() {
-            viewModel.downloadImage(for: follower.avatarUrl)
+            Task {
+                do {
+                    try await viewModel.downloadImage(for: follower.avatarUrl)
+                } catch {
+                    print("Image download failed")
+                    print(error)
+                }
+            }
         }
     }
 }

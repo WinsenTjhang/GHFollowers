@@ -8,14 +8,17 @@
 import SwiftUI
 
 class NetworkService {
+    
     var lastResponseHeaders: [AnyHashable: Any]?
-
-    func performRequest<T: Decodable>(url: URL, type: T.Type) async throws -> T {
-        let (data, response) = try await URLSession.shared.data(from: url)
+    
+    func performRequest<T: Decodable>(session: URLSession, url: URL, type: T.Type) async throws -> T {
+        let (data, response) = try await session.data(from: url)
         self.lastResponseHeaders = (response as? HTTPURLResponse)?.allHeaderFields
 
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw NetworkError.invalidResponse(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 0)
+        guard let response = response as? HTTPURLResponse,
+              (200...300) ~= response.statusCode else {
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            throw NetworkError.invalidStatusCode(statusCode: statusCode)
         }
 
         do {
@@ -24,19 +27,22 @@ class NetworkService {
             decoder.dateDecodingStrategy = .iso8601
             return try decoder.decode(T.self, from: data)
         } catch {
-            throw NetworkError.invalidData
+            print(error)
+            throw DecodingError.invalidData
         }
     }
     
-    func downloadImage(url: URL) async throws -> UIImage {
-        let (data, response) = try await URLSession.shared.data(from: url)
+    func downloadImage(session: URLSession, url: URL) async throws -> UIImage {
+        let (data, response) = try await session.data(from: url)
         
-        guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-            throw NetworkError.invalidResponse(statusCode: (response as? HTTPURLResponse)?.statusCode ?? 0)
+        guard let response = response as? HTTPURLResponse,
+              (200...300) ~= response.statusCode else {
+            let statusCode = (response as! HTTPURLResponse).statusCode
+            throw NetworkError.invalidStatusCode(statusCode: statusCode)
         }
-        
+
         guard let image = UIImage(data: data) else {
-            throw NetworkError.invalidData
+            throw DecodingError.invalidImageData
         }
         
         return image

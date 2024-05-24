@@ -12,11 +12,21 @@ class UserInfoViewModel: ObservableObject {
     @Published var showErrorAlert = false
     @Published var errorMessage = ""
     
+    private let networkManager: NetworkManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+    
     @MainActor
     func getUserInfo(of username: String) {
         Task {
+            defer {
+                completionHandler?()
+            }
             do {
-                user = try await NetworkManager.shared.getUserInfo(for: username)
+                self.user = try await networkManager.getUserInfo(session: .shared, for: username)
             } catch {
                 showErrorAlert = true
                 errorMessage = error.localizedDescription

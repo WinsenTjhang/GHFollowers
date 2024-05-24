@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-@MainActor
 class FollowersListViewModel: ObservableObject {
+    
     @Published var isOnFavorite = false
     @Published var followers: [Follower] = []
     @Published var isLoading = false
@@ -20,17 +20,30 @@ class FollowersListViewModel: ObservableObject {
     var hasMoreFollowers = false
     var currentPage = 1
     
-    func searchFollowers() {
-        guard !isLoading else { return } // Avoid redundant network requests
-        
-        isLoading = true
-        defer { isLoading = false } // Ensure loading state is reset
-        
+    private let networkManager: NetworkManagerProtocol
+    private let persistenceManager: PersistenceManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared, persistenceManager: PersistenceManagerProtocol = PersistenceManager.shared) {
+        self.networkManager = networkManager
+        self.persistenceManager = persistenceManager
+    }
+    
+    @MainActor
+    func fetchFollowers() {
         Task {
+            guard !isLoading else { return } 
+            
+            isLoading = true
+            defer {
+                isLoading = false
+                completionHandler?()
+            }
+            
             do {
-                let (followers, pagesRemaining) = try await NetworkManager.shared.getFollowers(of: username, page: currentPage)
+                let (followers, hasMorePages) = try await networkManager.getFollowers(session: .shared, of: username, page: currentPage)
                 self.followers.append(contentsOf: followers)
-                self.hasMoreFollowers = pagesRemaining
+                self.hasMoreFollowers = hasMorePages
                 if hasMoreFollowers {
                     currentPage += 1
                 }
@@ -42,15 +55,21 @@ class FollowersListViewModel: ObservableObject {
         }
     }
     
+    @MainActor
     func loadMoreIfNeeded(lastFollower currentFollower: Follower) {
         if currentFollower == followers.last && hasMoreFollowers {
-            searchFollowers()
+            fetchFollowers()
         }
     }
     
+    @MainActor
     func getUserInfo() async -> Follower? {
+        defer {
+            completionHandler?()
+        }
+        
         do {
-            let user = try await NetworkManager.shared.getUserInfo(for: username)
+            let user = try await networkManager.getUserInfo(session: .shared, for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
             showErrorAlert = true
@@ -64,7 +83,7 @@ class FollowersListViewModel: ObservableObject {
     
     func addToFavorite() {
         do {
-            try PersistenceManager.shared.add(favorite: user)
+            try persistenceManager.add(favorite: user)
         } catch {
             showErrorAlert = true
             errorMessage = error.localizedDescription
@@ -74,10 +93,10 @@ class FollowersListViewModel: ObservableObject {
     
     
     func removeFavorite() {
-        let index = IndexSet(integer: PersistenceManager.shared.favorites.firstIndex(of: user)!)
+        let index = IndexSet(integer: persistenceManager.favorites.firstIndex(of: user)!)
         
         do {
-            try PersistenceManager.shared.remove(indexSet: index)
+            try persistenceManager.remove(indexSet: index)
         } catch {
             showErrorAlert = true
             errorMessage = error.localizedDescription
@@ -86,14 +105,19 @@ class FollowersListViewModel: ObservableObject {
     }
     
     
+    @MainActor
     func isUserFavorite() {
         Task {
+            defer {
+                completionHandler?()
+            }
+            
             do {
-                let _ = try PersistenceManager.shared.retrieveFavorites()
+                let _ = try persistenceManager.retrieveFavorites()
                 guard let user = await getUserInfo() else {return}
                 
                 self.user = user
-                isOnFavorite = PersistenceManager.shared.favorites.contains(user)
+                isOnFavorite = persistenceManager.favorites.contains(user)
             } catch {
                 showErrorAlert = true
                 errorMessage = error.localizedDescription
