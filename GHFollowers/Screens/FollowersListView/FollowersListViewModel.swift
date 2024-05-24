@@ -64,17 +64,12 @@ class FollowersListViewModel: ObservableObject {
     
     @MainActor
     func getUserInfo() async -> Follower? {
-        guard !isLoading else { return nil }
-        
-        isLoading = true
         defer {
-            isLoading = false
             completionHandler?()
         }
         
         do {
             let user = try await networkManager.getUserInfo(session: .shared, for: username)
-            print(username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
             showErrorAlert = true
@@ -110,6 +105,7 @@ class FollowersListViewModel: ObservableObject {
     }
     
     
+    @MainActor
     func isUserFavorite() {
         Task {
             defer {
@@ -121,9 +117,7 @@ class FollowersListViewModel: ObservableObject {
                 guard let user = await getUserInfo() else {return}
                 
                 self.user = user
-                print(self.user)
                 isOnFavorite = persistenceManager.favorites.contains(user)
-                print("isOnfavorite: \(isOnFavorite)")
             } catch {
                 showErrorAlert = true
                 errorMessage = error.localizedDescription

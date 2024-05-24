@@ -92,7 +92,7 @@ class NetworkingManagerTests: XCTestCase {
         }
         
         do {
-            let data = try await NetworkManager.shared.getFollowers(session: session, of: "ovec8hkin", page: 1)
+            let _ = try await NetworkManager.shared.getFollowers(session: session, of: "ovec8hkin", page: 1)
             XCTFail("Expected DecodingError to be thrown.")
         } catch {
             if !(error is DecodingError) {
@@ -217,7 +217,7 @@ class NetworkingManagerTests: XCTestCase {
         }
         
         do {
-            let data = try await NetworkManager.shared.downloadImage(session: session, urlString: avatarURL)
+            let _ = try await NetworkManager.shared.downloadImage(session: session, urlString: avatarURL)
             XCTFail("Expected DecodingError to be thrown.")
         } catch {
             if !(error is DecodingError) {

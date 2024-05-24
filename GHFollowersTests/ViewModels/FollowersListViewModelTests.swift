@@ -126,14 +126,9 @@ class FollowersListViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        XCTAssertFalse(viewModel.isLoading, "The view model shouldn't be loading any data")
         
         let userInfo = await viewModel.getUserInfo()
         await fulfillment(of: [expectation], timeout: 1.0)
-        
-        defer {
-            XCTAssertFalse(viewModel.isLoading, "The view model shouldn't be loading any data")
-        }
         
         XCTAssertEqual(userInfo, expectedUserInfo, "The returned user should match the expected user")
         XCTAssertFalse(viewModel.showErrorAlert, "The view model should not show an error alert")
@@ -215,7 +210,7 @@ class FollowersListViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        viewModel.isUserFavorite()
+        await viewModel.isUserFavorite()
         await fulfillment(of: [expectation], timeout: 1.0)
         
         XCTAssertTrue(mockPersistenceManager.retrieveWasCalled, "The persistence manager's retrieve method should be called")
@@ -232,7 +227,7 @@ class FollowersListViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        viewModel.isUserFavorite()
+        await viewModel.isUserFavorite()
         await fulfillment(of: [expectation], timeout: 1.0)
         
         XCTAssertTrue(mockPersistenceManager.retrieveWasCalled, "The persistence manager's retrieve method should be called")

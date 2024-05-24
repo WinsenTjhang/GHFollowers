@@ -24,7 +24,6 @@ final class FavoritesViewModel: ObservableObject {
         do {
             let _ = try persistenceManager.retrieveFavorites()
             favorites = persistenceManager.favorites
-            print(favorites)
         } catch {
             showErrorAlert = true
             errorMessage = error.localizedDescription
