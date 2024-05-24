@@ -7,67 +7,133 @@
 
 import SwiftUI
 
-@Observable
-class FollowersListViewModel {
-    var followers: [Follower] = []
-    var user: Follower = .placeholder
-    var isLoading = true
+class FollowersListViewModel: ObservableObject {
     
-    func searchFollowers(of username: String) async {
-        do {
-            followers = try await NetworkManager.shared.getFollowers(of: username)
-            isLoading = false
-        } catch {
-            print(error)
-            print("Search followers failed, \(error.localizedDescription)")
+    @Published var isOnFavorite = false
+    @Published var followers: [Follower] = []
+    @Published var isLoading = false
+    @Published var showErrorAlert = false
+    @Published var errorMessage = ""
+    
+    var username: String = ""
+    var user: Follower = .placeholder
+    var hasMoreFollowers = false
+    var currentPage = 1
+    
+    private let networkManager: NetworkManagerProtocol
+    private let persistenceManager: PersistenceManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared, persistenceManager: PersistenceManagerProtocol = PersistenceManager.shared) {
+        self.networkManager = networkManager
+        self.persistenceManager = persistenceManager
+    }
+    
+    @MainActor
+    func fetchFollowers() {
+        Task {
+            guard !isLoading else { return } 
+            
+            isLoading = true
+            defer {
+                isLoading = false
+                completionHandler?()
+            }
+            
+            do {
+                let (followers, hasMorePages) = try await networkManager.getFollowers(session: .shared, of: username, page: currentPage)
+                self.followers.append(contentsOf: followers)
+                self.hasMoreFollowers = hasMorePages
+                if hasMoreFollowers {
+                    currentPage += 1
+                }
+            } catch {
+                showErrorAlert = true
+                errorMessage = error.localizedDescription
+                print("Debug Info:", error)
+            }
         }
     }
     
+    @MainActor
+    func loadMoreIfNeeded(lastFollower currentFollower: Follower) {
+        if currentFollower == followers.last && hasMoreFollowers {
+            fetchFollowers()
+        }
+    }
     
-    func getUserInfo(for username: String) async -> Follower? {
+    @MainActor
+    func getUserInfo() async -> Follower? {
+        defer {
+            completionHandler?()
+        }
+        
         do {
-            let user = try await NetworkManager.shared.getUserInfo(for: username)
+            let user = try await networkManager.getUserInfo(session: .shared, for: username)
             return Follower(login: user.login, avatarUrl: user.avatarUrl)
         } catch {
-            print(error)
-            print("Get user info failed: \(error.localizedDescription)")
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
+            print("Debug Info:", error)
         }
         
         return nil
     }
     
     
-    func addToFavorite(persistenceManager: PersistenceManager) {
+    func addToFavorite() {
         do {
             try persistenceManager.add(favorite: user)
         } catch {
-            print(error)
-            print(error.localizedDescription)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
+            print("Debug Info:", error)
         }
     }
     
     
-    func removeFavorite(persistenceManager: PersistenceManager) {
+    func removeFavorite() {
         let index = IndexSet(integer: persistenceManager.favorites.firstIndex(of: user)!)
         
         do {
             try persistenceManager.remove(indexSet: index)
         } catch {
-            print(error)
-            print(error.localizedDescription)
+            showErrorAlert = true
+            errorMessage = error.localizedDescription
+            print("Debug Info:", error)
         }
     }
     
     
-    func isUserFavorite(username: String, persistenceManager: PersistenceManager) async -> Bool {
-        let _ = persistenceManager.retrieveFavorites()
-        
-        guard let user = await getUserInfo(for: username) else {
-            return false
+    @MainActor
+    func isUserFavorite() {
+        Task {
+            defer {
+                completionHandler?()
+            }
+            
+            do {
+                let _ = try persistenceManager.retrieveFavorites()
+                guard let user = await getUserInfo() else {return}
+                
+                self.user = user
+                isOnFavorite = persistenceManager.favorites.contains(user)
+            } catch {
+                showErrorAlert = true
+                errorMessage = error.localizedDescription
+                print("Debug Info:", error)
+            }
+        }
+    }
+    
+    func toggleFavorite() {
+        if !isOnFavorite {
+            addToFavorite()
+        } else {
+            removeFavorite()
         }
         
-        self.user = user
-        return persistenceManager.favorites.contains(user)
+        withAnimation(.bouncy) {isOnFavorite.toggle()}
     }
     
     

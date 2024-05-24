@@ -7,12 +7,23 @@
 
 import SwiftUI
 
-@Observable
-class FollowerCellViewModel {
-    var image: Image = Images.placeholder
+class FollowerCellViewModel: ObservableObject {
+    @Published var image: Image = Images.placeholder
     
+    private let networkManager: NetworkManagerProtocol
+    var completionHandler: (() -> Void)?
+    
+    init(networkManager: NetworkManagerProtocol = NetworkManager.shared) {
+        self.networkManager = networkManager
+    }
+    
+    @MainActor
     func downloadImage(for url: String) async throws {
-        image = Image(uiImage: try await NetworkManager.shared.downloadImage(urlString: url))
+        defer {
+            completionHandler?()
+        }
+        
+        image = Image(uiImage: try await networkManager.downloadImage(session: .shared, urlString: url))
     }
     
 }

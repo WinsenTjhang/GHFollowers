@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct FollowerCell: View {
-    @State var viewModel = FollowerCellViewModel()
+    @StateObject var viewModel = FollowerCellViewModel()
     let follower: Follower
     
     var body: some View {
@@ -20,13 +20,17 @@ struct FollowerCell: View {
             
             BodyLabel(follower.login)
                 .font(.headline)
-                
                 .lineLimit(1)
                 .minimumScaleFactor(0.75)
         }
         .onAppear() {
             Task {
-                try await viewModel.downloadImage(for: follower.avatarUrl)
+                do {
+                    try await viewModel.downloadImage(for: follower.avatarUrl)
+                } catch {
+                    print("Image download failed")
+                    print(error)
+                }
             }
         }
     }
